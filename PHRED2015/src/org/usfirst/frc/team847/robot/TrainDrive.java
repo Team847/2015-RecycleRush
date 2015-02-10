@@ -35,11 +35,11 @@ public class TrainDrive implements RobotMap {
 			}
 			switch(motor) {
 			case 0:
-				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) + gyroval)) * iPhone.Magnitude(Xbox) + 0.5 * iPhone.getAxisValue(Xbox, 4);
+				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) + gyroval + 180)) * iPhone.Magnitude(Xbox) + 0.5 * iPhone.getAxisValue(Xbox, 4);
 			case 60:
-				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) + 120 + gyroval)) * iPhone.Magnitude(Xbox) + 0.5 * iPhone.getAxisValue(Xbox, 4);
+				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) + 120 + gyroval + 180)) * iPhone.Magnitude(Xbox) + 0.5 * iPhone.getAxisValue(Xbox, 4);
 			case 120:
-				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) - 120 + gyroval)) * iPhone.Magnitude(Xbox) + 0.5 * iPhone.getAxisValue(Xbox, 4);
+				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) - 120 + gyroval + 180)) * iPhone.Magnitude(Xbox) + 0.5 * iPhone.getAxisValue(Xbox, 4);
 			default:
 				return 0;
 			}
@@ -52,11 +52,11 @@ public class TrainDrive implements RobotMap {
 			}
 			switch(motor) {
 			case 0:
-				return Math.sin(Math.toRadians(angle + gyroval)) * speed + 0.5 * turn;
+				return Math.sin(Math.toRadians(angle + gyroval + 180)) * speed + 0.5 * turn;
 			case 60:
-				return Math.sin(Math.toRadians(angle + 120 + gyroval)) * speed + 0.5 * turn;
+				return Math.sin(Math.toRadians(angle + 120 + gyroval + 180)) * speed + 0.5 * turn;
 			case 120:
-				return Math.sin(Math.toRadians(angle - 120 + gyroval)) * speed + 0.5 * turn;
+				return Math.sin(Math.toRadians(angle - 120 + gyroval + 180)) * speed + 0.5 * turn;
 			default:
 				return 0;
 			}
