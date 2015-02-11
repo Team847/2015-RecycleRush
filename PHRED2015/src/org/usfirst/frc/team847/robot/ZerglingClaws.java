@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.AnalogOutput;
 public class ZerglingClaws implements RobotMap {
 	DoubleSolenoid DNoir = new DoubleSolenoid(DSPORT1, DSPORT2);
 	Compressor Press = new Compressor(COMPRESSOR);
-	CANTalon Cantalope = new CANTalon(CLAWTALON);
+	CANTalon Cantalope = new CANTalon(CANTALON_WRIST);
 	GamePad Pad = new GamePad(GAMEPAD2);
 	BoarDash Dash = new BoarDash();
 	
@@ -51,7 +51,7 @@ public class ZerglingClaws implements RobotMap {
 	
 	void WristControl(){ // What else does this need to do?
 							// Encoder will be used to control degree of rotation.
-		if(Pad.leftTrigger() > 0.2) {
+		if(Pad.leftTrigger() > 0.2) {//no idea if this works
 			Cantalope.set(1.d);
 		}
 		if(Pad.rightTrigger() > 0.2) {

@@ -75,14 +75,12 @@ public interface RobotMap {
 			public final static int OPENCLAW = 777;
 	//::::PNEUMATICS::::\\
 		//::::Double Solenoid::::\\
-			public final static int DSPORT1 = 6;
-			public final static int DSPORT2 = 5;
+			public final static int DSPORT1 = 1;
+			public final static int DSPORT2 = 2;
 			
 		//::::Compressor::::\\
 			public final static int COMPRESSOR = 4;
 		
-		//::::Motor::::\\
-			public final static int CLAWTALON = 0;
 		
 //=======================================ARMSpring============================================\\
 		
