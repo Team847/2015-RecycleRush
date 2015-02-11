@@ -1,6 +1,5 @@
 package org.usfirst.frc.team847.robot;
 
-import edu.wpi.first.wpilibj.AnalogOutput;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -13,7 +12,6 @@ import edu.wpi.first.wpilibj.AnalogOutput;
 public class ZerglingClaws implements RobotMap {
 	DoubleSolenoid DNoir = new DoubleSolenoid(DSPORT1, DSPORT2);
 	Compressor Press = new Compressor(COMPRESSOR);
-	AnalogOutput Logitech = new AnalogOutput(POTENTIOMETER); // <---- vvd if this works
 	CANTalon Cantalope = new CANTalon(CLAWTALON);
 	GamePad Pad = new GamePad(GAMEPAD2);
 	BoarDash Dash = new BoarDash();
@@ -38,6 +36,15 @@ public class ZerglingClaws implements RobotMap {
 			DNoir.set(DoubleSolenoid.Value.kReverse);
 		}
 		if (clawstatus == close){
+			DNoir.set(DoubleSolenoid.Value.kForward);
+		}
+	}
+	void ClawControl(int openorclose){
+		
+		if (openorclose == OPENCLAW){
+			DNoir.set(DoubleSolenoid.Value.kReverse);
+		}
+		if (openorclose == CLOSECLAW){
 			DNoir.set(DoubleSolenoid.Value.kForward);
 		}
 	}

@@ -8,18 +8,11 @@ public class IOStream implements RobotMap {
 	BoarDash Dash = new BoarDash();
 	
 	// Init all those variable yo :D
-	Joystick Xbox1 = new Joystick(GAMEPAD1);
-	Joystick Xbox2 = new Joystick(GAMEPAD2);
-	Joystick FightStick1 = new Joystick(JOYSTICK1);
-	Joystick FightStick2 = new Joystick(JOYSTICK2);
-	
 	// GamePad integration
 	GamePad XboxEins = new GamePad(GAMEPAD1);
 	GamePad XboxZwei = new GamePad(GAMEPAD2);
 	
 	double GyroCompensation = 0;
-	int WhatXboxWeUsing = GAMEPAD1;
-	int WhatStickWeUsing = JOYSTICK1;//created for its use in TD. This makes it so that we can easily swap out which drive stick we're using
 	
 	double DeadZones(double joyin, int lower, int upper, double result) {
 		if(joyin > lower && joyin < upper) {
@@ -30,7 +23,7 @@ public class IOStream implements RobotMap {
 	}
 	
 	double CompensateGyro(double Angle) {
-		if(XboxEins.rBumper()) {  // Xbox1.getRawButton(6)
+		if(XboxEins.rBumper()) {  
 			GyroCompensation = Angle;
 		}
 		
@@ -39,7 +32,7 @@ public class IOStream implements RobotMap {
 	}
 	
 	//This might not be needed if similar funionality is put into GamePad also plz change name of gamepad is bad D:
-	double getAxisValue(int joystick, int axis) { // This one reads the axis value of the joysticks :D
+	/*double getAxisValue(int joystick, int axis) { // This one reads the axis value of the joysticks :D
 		switch(joystick) {
 			case GAMEPAD1: 
 				 // just realized that we need degrees, not x/y values.
@@ -47,14 +40,14 @@ public class IOStream implements RobotMap {
 					return 0;
 				}
 				else{
-					return XboxEins.getRawAxis(axis); // Xbox1.getRawAxis(axis)
+					return XboxEins.getRawAxis(axis); 
 				}
 			case GAMEPAD2:
-				return XboxZwei.getRawAxis(axis); // Xbox1.getRawAxis(axis)
+				return XboxZwei.getRawAxis(axis); 
 			default:
 				return 0.d;
 			}		
-	}
+	}*/
 	
 	double getAxisDegree(int joystick) {
 		// Switch to figure out which joystick we want to read.
@@ -88,22 +81,9 @@ public class IOStream implements RobotMap {
 				RawDegree = DeadZones(RawDegree, 265, 275, 270);
 				
 				return RawDegree;
-			case JOYSTICK1: // LOL WE DON'T USE JOYSTICKS
-				return FightStick1.getDirectionDegrees();
-			case JOYSTICK2:
-				return FightStick2.getDirectionDegrees();
 			default:
 				return 0;
 		}
-	}
-	double TurnValueJoystick(int WhatStickWeUsing){
-		if(WhatStickWeUsing == JOYSTICK1){
-			return(FightStick1.getZ());
-		}
-		else{
-			return(FightStick2.getZ());
-		}
-			
 	}
 	double TurnValueXbox(int WhatStickWeUsing){
 		if(WhatStickWeUsing == GAMEPAD1){
@@ -142,10 +122,6 @@ public class IOStream implements RobotMap {
 					rawMagnitude = 0;
 				}
 				return rawMagnitude;//THE MATH MIGHT WORK. UNTIL WE TEST--WHO KNOWS
-			case JOYSTICK1:
-				return FightStick1.getMagnitude();
-			case JOYSTICK2:
-				return FightStick2.getMagnitude();
 			default:
 				return 0;
 		}

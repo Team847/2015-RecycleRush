@@ -2,7 +2,7 @@ package org.usfirst.frc.team847.robot;
 
 import edu.wpi.first.wpilibj.*;
 
-public class Theovator{
+public class Theovator implements RobotMap{
 	DigitalInput LimitSwitchTop;
 	DigitalInput LimitSwitchBottom;
 	CANTalon Motor;
@@ -15,11 +15,11 @@ public class Theovator{
 	int array[]={300,500,750,1000}; //TODO:fix numbers
 
     public Theovator(){
-        LimitSwitchTop = new DigitalInput(3);
-        LimitSwitchBottom = new DigitalInput(2); //TODO:fix  numbers
-        Tooth = new GearTooth(0);
-        Motor = new CANTalon(1);
-        gamePad = new GamePad(0);
+        LimitSwitchTop = new DigitalInput(LIMIT_SWITCH_ELEVATOR_UPPER);
+        LimitSwitchBottom = new DigitalInput(LIMIT_SWITCH_ELEVATOR_LOWER); //TODO:fix  numbers
+        Tooth = new GearTooth(GEARTOOTH_ELEVATOR);
+        Motor = new CANTalon(CANTALON_THEOVATOR);
+        gamePad = new GamePad(GAMEPAD2);//GP2 BECAUSE IT'S OBJECT MANIP
     	Up = 1;
     	Down = -1;
     	Stop = 0;
@@ -40,7 +40,7 @@ public class Theovator{
     	}
 
     	Tooth.update(MotorSpeed);
-    	//Utils.pl("GTValue: ", Tooth.get());
+    	Utils.pl("GTValue: ", Tooth.get());
         Motor.set(MotorSpeed);
     }
     

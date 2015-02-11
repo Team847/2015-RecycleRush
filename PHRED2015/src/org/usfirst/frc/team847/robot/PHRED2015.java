@@ -19,10 +19,10 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
 	private BoarDash Dash;
 	//private AutoNoms food;
 	private Theovator Theo;
-	//private CountDragonTeeth Dwagon;
+	//private GearTooth Dwagon;
 	
-	private Counter Dooku; // Questionable. If you get rid of this, get rid of the Counter import up above plz
-	private ARMSpring armstrong;
+	//private Counter Dooku; // Questionable. If you get rid of this, get rid of the Counter import up above plz
+	//private ARMSpring armstrong;
 	private ZerglingClaws lings;
     /**
      * This function is run when the robot is first started up and should be
@@ -33,11 +33,12 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     //food = new AutoNoms();
     Dash = new BoarDash();
     Theo = new Theovator();
+    //Dwagon = new GearTooth(GEARTOOTH_ELEVATOR);
     //Dwagon = new CountDragonTeeth();
     Dash.SDString("", "Orcas are the best");
     choochoo.Heading.reset();
-    Dooku = new Counter();
-    armstrong = new ARMSpring();
+    //Dooku = new Counter();
+    //armstrong = new ARMSpring();
     }
 
     /**
@@ -76,9 +77,12 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     	//choochoo.KiwiDrive();
     	
     	choochoo.KiwiV8Drive();
-    	armstrong.JackInTheBox();
+    	//Theo.LiftControl();
+    	//Dwagon.update(1);
+    	//Dash.SDNumber("THIS", Dwagon.get());
+    	//Utils.pl("Test", Dwagon.get());
+    	//armstrong.JackInTheBox();
     	//Dwagon.UpdateDirection(choochoo.Motor_0, Dooku);
-
     	//Dwagon.CountDragons(Dooku);*/
     	
     	//choochoo.Calibrate();

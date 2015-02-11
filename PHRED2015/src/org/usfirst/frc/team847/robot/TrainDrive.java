@@ -10,6 +10,7 @@ public class TrainDrive implements RobotMap {
 		Gyro Heading = new Gyro(GYRO);
 		IOStream iPhone = new IOStream();
 		BoarDash Dash = new BoarDash();
+		GamePad Drive = new GamePad(GAMEPAD1);
 		//Talon Drive_0 = new Talon(DRIVE_MOTOR_0);
 		//Talon Drive_60 = new Talon(DRIVE_MOTOR_60);
 		//Talon Drive_120 = new Talon(DRIVE_MOTOR_120);
@@ -35,11 +36,11 @@ public class TrainDrive implements RobotMap {
 			}
 			switch(motor) {
 			case 0:
-				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) + gyroval + 180)) * iPhone.Magnitude(Xbox) + 0.5 * iPhone.getAxisValue(Xbox, 4);
+				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) + gyroval + 180)) * iPhone.Magnitude(Xbox) + 0.5 * Drive.rightStickX();
 			case 60:
-				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) + 120 + gyroval + 180)) * iPhone.Magnitude(Xbox) + 0.5 * iPhone.getAxisValue(Xbox, 4);
+				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) + 120 + gyroval + 180)) * iPhone.Magnitude(Xbox) + 0.5 * Drive.rightStickX();
 			case 120:
-				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) - 120 + gyroval + 180)) * iPhone.Magnitude(Xbox) + 0.5 * iPhone.getAxisValue(Xbox, 4);
+				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) - 120 + gyroval + 180)) * iPhone.Magnitude(Xbox) + 0.5 * Drive.rightStickX();
 			default:
 				return 0;
 			}
@@ -230,7 +231,7 @@ public class TrainDrive implements RobotMap {
 			Dash.SDNumber("Motor 3 speed", Motor_120);
 			Dash.SDNumber("Rotation Scale", RotationScaleDown);
 			
-			Dash.SDNumber("TEST", iPhone.getAxisValue(GAMEPAD1, 2));
+			Dash.SDNumber("TEST", Drive.leftTrigger());
 			
 			VDrive_0.set(Motor_0 * RotationScaleDown);
 			VDrive_60.set(Motor_60 * RotationScaleDown);
