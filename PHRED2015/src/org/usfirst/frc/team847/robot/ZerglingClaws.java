@@ -44,7 +44,7 @@ public class ZerglingClaws implements RobotMap {
 		if (openorclose == OPENCLAW){
 			DNoir.set(DoubleSolenoid.Value.kReverse);
 		}
-		if (openorclose == CLOSECLAW){
+		if (openorclose == CLOSECLAW){// Uh oh. Theo has a plan
 			DNoir.set(DoubleSolenoid.Value.kForward);
 		}
 	}

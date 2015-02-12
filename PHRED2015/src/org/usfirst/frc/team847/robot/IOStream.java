@@ -1,7 +1,5 @@
 package org.usfirst.frc.team847.robot;
 
-import edu.wpi.first.wpilibj.*;
-
 public class IOStream implements RobotMap {
 	// If we wanna change stuff from GamePad to standard joystick, just switch 1 and 2 with Eins and Zwei. Or the other way around :|
 	
@@ -10,9 +8,12 @@ public class IOStream implements RobotMap {
 	// Init all those variable yo :D
 	// GamePad integration
 	GamePad XboxEins = new GamePad(GAMEPAD1);
-	GamePad XboxZwei = new GamePad(GAMEPAD2);
 	
 	double GyroCompensation = 0;
+	
+	public IOStream(GamePad eins){
+		XboxEins = eins;
+	}
 	
 	double DeadZones(double joyin, int lower, int upper, double result) {
 		if(joyin > lower && joyin < upper) {
@@ -69,7 +70,7 @@ public class IOStream implements RobotMap {
 				
 				return RawDegree;
 			case GAMEPAD2:
-				RawDegree = Math.toDegrees(Math.atan2(XboxZwei.getX(), XboxZwei.getY()));
+		/*		RawDegree = Math.toDegrees(Math.atan2(XboxZwei.getX(), XboxZwei.getY()));
 				if(RawDegree < 0){
 					RawDegree += 360;
 				}
@@ -80,20 +81,20 @@ public class IOStream implements RobotMap {
 				RawDegree = DeadZones(RawDegree, 175, 185, 180);
 				RawDegree = DeadZones(RawDegree, 265, 275, 270);
 				
-				return RawDegree;
+				return RawDegree;*/
 			default:
 				return 0;
 		}
 	}
-	double TurnValueXbox(int WhatStickWeUsing){
+	/*double TurnValueXbox(int WhatStickWeUsing){
 		if(WhatStickWeUsing == GAMEPAD1){
 			return(((-XboxEins.getZ() - 0.5) * 2));//The Z-Axis is the triggers. This code makes to robot turn via the triggers
 		}//the math changes the current 0-1 output to standard -1 to 1
 		else{
-			return(((-XboxZwei.getZ() - 0.5) * 2));
+		//	return(((-XboxZwei.getZ() - 0.5) * 2));
 		}
 			
-	}
+	}*/
 	
 	double Magnitude(int WhatStickWeUsing) {
 		double rawMagnitude;
@@ -112,7 +113,7 @@ public class IOStream implements RobotMap {
 				}
 				return rawMagnitude;//THE MATH MIGHT WORK. UNTIL WE TEST--WHO KNOWS
 			case GAMEPAD2:
-				rawMagnitude = XboxZwei.getMagnitude();
+		/*		rawMagnitude = XboxZwei.getMagnitude();
 				
 				if(rawMagnitude > 1) {
 					rawMagnitude = 1;
@@ -122,7 +123,7 @@ public class IOStream implements RobotMap {
 					rawMagnitude = 0;
 				}
 				return rawMagnitude;//THE MATH MIGHT WORK. UNTIL WE TEST--WHO KNOWS
-			default:
+*/			default:
 				return 0;
 		}
 	}

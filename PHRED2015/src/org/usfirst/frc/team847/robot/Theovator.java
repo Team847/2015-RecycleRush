@@ -6,7 +6,7 @@ public class Theovator implements RobotMap{
 	DigitalInput LimitSwitchTop;
 	DigitalInput LimitSwitchBottom;
 	CANTalon Motor;
-	GearTooth Tooth;
+	GearTooth Dwagon;
 	GamePad gamePad;
 	double MotorSpeed;
 	long Up;
@@ -14,12 +14,14 @@ public class Theovator implements RobotMap{
 	long Stop;
 	int array[]={300,500,750,1000}; //TODO:fix numbers
 
-    public Theovator(){
+    public Theovator(GearTooth bite, GamePad pad){
+    	Dwagon = bite;
+    	gamePad = pad;
         LimitSwitchTop = new DigitalInput(LIMIT_SWITCH_ELEVATOR_UPPER);
-        LimitSwitchBottom = new DigitalInput(LIMIT_SWITCH_ELEVATOR_LOWER); //TODO:fix  numbers
-        Tooth = new GearTooth(GEARTOOTH_ELEVATOR);
+        LimitSwitchBottom = new DigitalInput(LIMIT_SWITCH_ELEVATOR_LOWER); //Theo fixed the numbers
+//        Dwagon = new GearTooth(GEARTOOTH_ELEVATOR);
         Motor = new CANTalon(CANTALON_THEOVATOR);
-        gamePad = new GamePad(GAMEPAD2);//GP2 BECAUSE IT'S OBJECT MANIP
+//        gamePad = new GamePad(GAMEPAD2);//GP2 BECAUSE IT'S OBJECT MANIP
     	Up = 1;
     	Down = -1;
     	Stop = 0;
@@ -39,8 +41,8 @@ public class Theovator implements RobotMap{
     		MotorSpeed=Stop;
     	}
 
-    	Tooth.update(MotorSpeed);
-    	Utils.pl("GTValue: ", Tooth.get());
+    	Dwagon.update(MotorSpeed);
+    	Utils.pl("GTValue: ", Dwagon.get());
         Motor.set(MotorSpeed);
     }
     
@@ -62,9 +64,9 @@ public class Theovator implements RobotMap{
     		}
 
     		if(idx >= 0){
-    			if(array[idx] > Tooth.get())
+    			if(array[idx] > Dwagon.get())
     				return Up;
-        		else if(array[idx] < Tooth.get())
+        		else if(array[idx] < Dwagon.get())
         			 return Down;
         		else
         			return Stop;

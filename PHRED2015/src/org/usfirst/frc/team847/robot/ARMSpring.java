@@ -12,10 +12,14 @@ public class ARMSpring implements RobotMap {
 		CANTalon eagle = new CANTalon(SPRINGTALON);
 		DigitalInput InSwitch = new DigitalInput(LIMIT_SWITCH_ARM_RETRACTION);
 		DigitalInput OutSwitch = new DigitalInput(LIMIT_SWITCH_ARM_EXTENSION);
-		GamePad jack = new GamePad(GAMEPAD2);
+		GamePad jack;
 		
 		int BodyStick = GAMEPAD2;
 		double ARMSpeed = 0;
+		
+		public ARMSpring(GamePad pad) {
+			jack = pad;
+		}
 		
 		void JackInTheBox(){
 			ARMSpeed = (jack.rightStickY());

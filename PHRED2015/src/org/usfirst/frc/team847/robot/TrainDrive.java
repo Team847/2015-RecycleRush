@@ -7,10 +7,10 @@ public class TrainDrive implements RobotMap {
 	
 	//IOStream iPhone;
 		
-		Gyro Heading = new Gyro(GYRO);
-		IOStream iPhone = new IOStream();
+		Gyro Heading = new Gyro(GYRO);		
 		BoarDash Dash = new BoarDash();
 		GamePad Drive = new GamePad(GAMEPAD1);
+		IOStream iPhone = new IOStream(Drive);
 		//Talon Drive_0 = new Talon(DRIVE_MOTOR_0);
 		//Talon Drive_60 = new Talon(DRIVE_MOTOR_60);
 		//Talon Drive_120 = new Talon(DRIVE_MOTOR_120);

@@ -14,31 +14,30 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  **/
 
 public class PHRED2015 extends IterativeRobot implements RobotMap{
-	
+	private GamePad Xbox;
 	private TrainDrive choochoo;
 	private BoarDash Dash;
-	//private AutoNoms food;
+	private AutoNoms food;
 	private Theovator Theo;
-	//private GearTooth Dwagon;
+	private GearTooth Dwagon;
 	
-	//private Counter Dooku; // Questionable. If you get rid of this, get rid of the Counter import up above plz
-	//private ARMSpring armstrong;
+	private ARMSpring armstrong;
 	private ZerglingClaws lings;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() { 
+    Xbox = new GamePad(GAMEPAD2);
     choochoo = new TrainDrive();
-    //food = new AutoNoms();
+    food = new AutoNoms(choochoo);
     Dash = new BoarDash();
-    Theo = new Theovator();
-    //Dwagon = new GearTooth(GEARTOOTH_ELEVATOR);
+    Dwagon = new GearTooth(GEARTOOTH_ELEVATOR);
     //Dwagon = new CountDragonTeeth();
+    Theo = new Theovator(Dwagon, Xbox);
     Dash.SDString("", "Orcas are the best");
     choochoo.Heading.reset();
-    //Dooku = new Counter();
-    //armstrong = new ARMSpring();
+    armstrong = new ARMSpring(Xbox);
     }
 
     /**
