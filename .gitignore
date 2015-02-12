@@ -1,4 +1,6 @@
 /PHRED2015/bin/
+/PHRED2015/build/
+/PHRED2015/dist/
 *.class
 
 # Mobile Tools for Java (J2ME)
