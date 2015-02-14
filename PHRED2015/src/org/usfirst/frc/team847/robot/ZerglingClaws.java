@@ -22,10 +22,15 @@ public class ZerglingClaws implements RobotMap {
 	static int close = 2;
 	
 	int clawstatus = open;
+	double encodee; // Encoder values
 	
 	public ZerglingClaws(GamePad NUKE){
 		Pad = NUKE;
 		//Press.start();
+	}
+	public void ZerglingClawsInit() {
+		coder.reset();
+		
 	}
 	
 	void ClawControl(){
@@ -58,7 +63,8 @@ public class ZerglingClaws implements RobotMap {
 	}
 	
 	void WristControl(){ // What else does this need to do?
-							// Encoder will be used to control degree of rotation.
+		encodee = Cantalope.getEncPosition(); // Encoder will be used to control degree of rotation.
+		
 		if(Pad.leftTrigger() > 0.2) {//no idea if this works
 			Cantalope.set(1.d);
 		}
@@ -67,6 +73,7 @@ public class ZerglingClaws implements RobotMap {
 		}
 		if(Pad.rightTrigger() < 0.2 && Pad.leftTrigger() < 0.2) {
 			Cantalope.set(0);
+		Utils.pl("Encoder Position: ", Cantalope.getEncPosition());
 		}
 	}
 }

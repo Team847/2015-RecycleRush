@@ -95,7 +95,7 @@ public class TrainDrive implements RobotMap {
 			Drive_0.set(Motor_0 * RotationScaleDown);
 			Drive_60.set(Motor_60 * RotationScaleDown);
 			Drive_120.set(Motor_120 * RotationScaleDown);
-			System.out.println(GetGyro());
+			//System.out.println(GetGyro());
 		}
 		
 		void KiwiDrive() {
@@ -114,7 +114,7 @@ public class TrainDrive implements RobotMap {
 			Drive_0.set(Motor_0 * RotationScaleDown);
 			Drive_60.set(Motor_60 * RotationScaleDown);
 			Drive_120.set(Motor_120 * RotationScaleDown);
-			Utils.pl("String ", Heading.getAngle());
+			//Utils.pl("String ", Heading.getAngle());
 		}
 /*		
 		void BlindKiwi() {

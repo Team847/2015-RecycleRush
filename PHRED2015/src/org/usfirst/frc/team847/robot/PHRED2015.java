@@ -76,12 +76,17 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     /**
      * This function is called periodically during operator control
      */
+    public void teleopInit() {
+    	Dwagon.reset();
+    	lings.ZerglingClawsInit();
+    	
+    }
     public void teleopPeriodic() {
     	Theo.LiftControl();	
     	lings.ClawControl();
     	choochoo.KiwiDrive();  
     	lings.WristControl();
-    	armstrong.ArmControl();
+    	//armstrong.ArmControl();
     }
     
     /**
