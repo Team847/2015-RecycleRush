@@ -77,6 +77,8 @@ public interface RobotMap {
 			public final static int CLOSECLAW = 63;
 			public final static int OPENCLAW = 777;
 	//::::PNEUMATICS::::\\
+		//::::Pneumatics Control Module::::\\
+			public final static int PCM = 2;
 		//::::Double Solenoid::::\\
 			public final static int DSPORT1 = 1;
 			public final static int DSPORT2 = 2;

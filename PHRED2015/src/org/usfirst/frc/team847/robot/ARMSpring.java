@@ -21,7 +21,7 @@ public class ARMSpring implements RobotMap {
 			jack = pad;
 		}
 		
-		void JackInTheBox(){
+		void ArmControl(){
 			ARMSpeed = (jack.rightStickY());
 			if (InSwitch.get() == true && ARMSpeed < 0){
 				ARMSpeed = 0;

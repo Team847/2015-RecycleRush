@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.AnalogOutput;
 //import edu.wpi.first.wpilibj.*;
 
 public class ZerglingClaws implements RobotMap {
-	DoubleSolenoid DNoir = new DoubleSolenoid(DSPORT1, DSPORT2);
-	Compressor Press = new Compressor(COMPRESSOR);
+	DoubleSolenoid DNoir = new DoubleSolenoid(PCM, DSPORT1, DSPORT2);
+	Compressor Press = new Compressor();
 	CANTalon Cantalope = new CANTalon(CANTALON_WRIST);
 	GamePad Pad;
 	BoarDash Dash = new BoarDash();

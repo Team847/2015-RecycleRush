@@ -31,8 +31,8 @@ public class Theovator implements RobotMap{
     }
     public void LiftControl(){
     	MotorSpeed=JoyStickControl();
-    	if(MotorSpeed == Stop)
-    		MotorSpeed=DpadControl();
+    	/*if(MotorSpeed == Stop)
+    		MotorSpeed=DpadControl();*/
     
     	if(LimitSwitchTop.get()==true && MotorSpeed >0){
             MotorSpeed=Stop;
@@ -77,10 +77,10 @@ public class Theovator implements RobotMap{
     
         private double JoyStickControl(){
     	double ms = gamePad.leftStickY();
-        if(ms <0){
+        if(ms <-0.2){
             ms = Up;
         }
-        else if(ms >0){
+        else if(ms >0.2){
             ms = Down;
         }else{
     		ms=Stop;
