@@ -63,5 +63,8 @@ public class ZerglingClaws implements RobotMap {
 		if(Pad.rightTrigger() > 0.2) {
 			Cantalope.set(-1.d);
 		}
+		if(Pad.rightTrigger() < 0.2 && Pad.leftTrigger() < 0.2) {
+			Cantalope.set(0);
+		}
 	}
 }
