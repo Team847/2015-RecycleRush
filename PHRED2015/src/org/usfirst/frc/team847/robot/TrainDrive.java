@@ -10,13 +10,10 @@ public class TrainDrive implements RobotMap {
 		Gyro Heading = new Gyro(GYRO);		
 		BoarDash Dash = new BoarDash();
 		IOStream iPhone;
-		/*Talon Drive_0 = new Talon(DRIVE_MOTOR_0);
+		Talon Drive_0 = new Talon(DRIVE_MOTOR_0);
 		Talon Drive_60 = new Talon(DRIVE_MOTOR_60);
-		Talon Drive_120 = new Talon(DRIVE_MOTOR_120);*/
+		Talon Drive_120 = new Talon(DRIVE_MOTOR_120);
 		
-		Victor VDrive_0 = new Victor(DRIVE_MOTOR_0);
-		Victor VDrive_60 = new Victor(DRIVE_MOTOR_60);
-		Victor VDrive_120 = new Victor(DRIVE_MOTOR_120);
 		
 		int calimotor = 1;
 		double multiplier = 0.33333;
@@ -95,9 +92,9 @@ public class TrainDrive implements RobotMap {
 			Dash.SDNumber("M3S-A", Motor_120);
 			Dash.SDNumber("Rotation Scale", RotationScaleDown);
 			
-			VDrive_0.set(Motor_0 * RotationScaleDown);
-			VDrive_60.set(Motor_60 * RotationScaleDown);
-			VDrive_120.set(Motor_120 * RotationScaleDown);
+			Drive_0.set(Motor_0 * RotationScaleDown);
+			Drive_60.set(Motor_60 * RotationScaleDown);
+			Drive_120.set(Motor_120 * RotationScaleDown);
 			System.out.println(GetGyro());
 		}
 		
@@ -114,9 +111,9 @@ public class TrainDrive implements RobotMap {
 			Dash.SDNumber("Rotation Scale", RotationScaleDown);
 			
 			
-			VDrive_0.set(Motor_0 * RotationScaleDown);
-			VDrive_60.set(Motor_60 * RotationScaleDown);
-			VDrive_120.set(Motor_120 * RotationScaleDown);
+			Drive_0.set(Motor_0 * RotationScaleDown);
+			Drive_60.set(Motor_60 * RotationScaleDown);
+			Drive_120.set(Motor_120 * RotationScaleDown);
 			Utils.pl("String ", Heading.getAngle());
 		}
 /*		

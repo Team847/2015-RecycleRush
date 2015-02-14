@@ -30,8 +30,8 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
      * used for any initialization code.
      */
     public void robotInit() { 
-    Xbox2 = new GamePad(GAMEPAD2);
-    Xbox1 = new GamePad(GAMEPAD1);
+    Xbox2 = new GamePad(GAMEPAD2);//object manip
+    Xbox1 = new GamePad(GAMEPAD1);//drive
     iPhone = new IOStream(Xbox1);
     choochoo = new TrainDrive(iPhone);
     food = new AutoNoms(choochoo, iPhone);
@@ -83,7 +83,7 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     	//choochoo.KiwiV8Drive();
     	//Utils.pl("the inches ", iPhone.DolphinRangeFinder());
     	
-    	Theo.LiftControl();
+    	//Theo.LiftControl();
     	//Dwagon.update(1);
     	//Dash.SDNumber("THIS", Dwagon.get());
     	//Utils.pl("Test", Dwagon.get());
