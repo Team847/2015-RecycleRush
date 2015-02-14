@@ -77,28 +77,11 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	//choochoo.BlindKiwi();
+    	
     	choochoo.KiwiDrive();
     	
-    	//choochoo.KiwiV8Drive();
-    	//Utils.pl("the inches ", iPhone.DolphinRangeFinder());
+    	lings.ClawControl();
     	
-    	//Theo.LiftControl();
-    	//Dwagon.update(1);
-    	//Dash.SDNumber("THIS", Dwagon.get());
-    	//Utils.pl("Test", Dwagon.get());
-    	//armstrong.JackInTheBox();
-    	//Dwagon.UpdateDirection(choochoo.Motor_0, Dooku);
-    	//Dwagon.CountDragons(Dooku);*/
-    	
-    	//choochoo.Calibrate();
-    	//Dash.SDString("Orcas", "Win");
-    	/*
-    	//System.out.println(((Math.sin(Math.toRadians(choochoo.iPhone.getAxisDegree(choochoo.iPhone.WhatXboxWeUsing))))));
-    	//System.out.println((((4.0))));
-    	//System.out.println(((Math.sin(Math.toRadians(choochoo.iPhone.getAxisDegree(choochoo.iPhone.WhatXboxWeUsing))))) + ((Math.sin(Math.toRadians(choochoo.iPhone.getAxisDegree(choochoo.iPhone.WhatXboxWeUsing) + 120)))) + ((Math.sin(Math.toRadians(choochoo.iPhone.getAxisDegree(choochoo.iPhone.WhatXboxWeUsing) - 120)))));	
-    	!*!*!*!*!*!*!*!*!*!*!*!HERE MARKS THE POINT WHERE KEN WAS RIGHT. +-120 IS THE TRUE PATH!*!*!*!*!*!*!*!*!*!*!*!
-   		*/
     }
     
     /**

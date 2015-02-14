@@ -23,7 +23,7 @@ public class ZerglingClaws implements RobotMap {
 	
 	public ZerglingClaws(GamePad NUKE){
 		Pad = NUKE;
-		Press.start();
+		//Press.start();
 	}
 	
 	void ClawControl(){
