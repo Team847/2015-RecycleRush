@@ -14,12 +14,14 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  **/
 
 public class PHRED2015 extends IterativeRobot implements RobotMap{
-	private GamePad Xbox;
+	private GamePad Xbox2;
+	private GamePad Xbox1;
 	private TrainDrive choochoo;
 	private BoarDash Dash;
 	private AutoNoms food;
 	private Theovator Theo;
 	private GearTooth Dwagon;
+	private IOStream iPhone;
 	
 	private ARMSpring armstrong;
 	private ZerglingClaws lings;
@@ -28,16 +30,19 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
      * used for any initialization code.
      */
     public void robotInit() { 
-    Xbox = new GamePad(GAMEPAD2);
-    choochoo = new TrainDrive();
-    food = new AutoNoms(choochoo);
+    Xbox2 = new GamePad(GAMEPAD2);
+    Xbox1 = new GamePad(GAMEPAD1);
+    iPhone = new IOStream(Xbox1);
+    choochoo = new TrainDrive(iPhone);
+    food = new AutoNoms(choochoo, iPhone);
     Dash = new BoarDash();
     Dwagon = new GearTooth(GEARTOOTH_ELEVATOR);
     //Dwagon = new CountDragonTeeth();
-    Theo = new Theovator(Dwagon, Xbox);
+    Theo = new Theovator(Dwagon, Xbox2);
     Dash.SDString("", "Orcas are the best");
     choochoo.Heading.reset();
-    armstrong = new ARMSpring(Xbox);
+    armstrong = new ARMSpring(Xbox2);
+    lings = new ZerglingClaws(Xbox2);
     }
 
     /**
@@ -73,10 +78,12 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
      */
     public void teleopPeriodic() {
     	//choochoo.BlindKiwi();
-    	//choochoo.KiwiDrive();
+    	choochoo.KiwiDrive();
     	
-    	choochoo.KiwiV8Drive();
-    	//Theo.LiftControl();
+    	//choochoo.KiwiV8Drive();
+    	//Utils.pl("the inches ", iPhone.DolphinRangeFinder());
+    	
+    	Theo.LiftControl();
     	//Dwagon.update(1);
     	//Dash.SDNumber("THIS", Dwagon.get());
     	//Utils.pl("Test", Dwagon.get());

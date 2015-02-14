@@ -9,11 +9,10 @@ public class TrainDrive implements RobotMap {
 		
 		Gyro Heading = new Gyro(GYRO);		
 		BoarDash Dash = new BoarDash();
-		GamePad Drive = new GamePad(GAMEPAD1);
-		IOStream iPhone = new IOStream(Drive);
-		//Talon Drive_0 = new Talon(DRIVE_MOTOR_0);
-		//Talon Drive_60 = new Talon(DRIVE_MOTOR_60);
-		//Talon Drive_120 = new Talon(DRIVE_MOTOR_120);
+		IOStream iPhone;
+		/*Talon Drive_0 = new Talon(DRIVE_MOTOR_0);
+		Talon Drive_60 = new Talon(DRIVE_MOTOR_60);
+		Talon Drive_120 = new Talon(DRIVE_MOTOR_120);*/
 		
 		Victor VDrive_0 = new Victor(DRIVE_MOTOR_0);
 		Victor VDrive_60 = new Victor(DRIVE_MOTOR_60);
@@ -29,18 +28,21 @@ public class TrainDrive implements RobotMap {
 		
 		static double notGyroVal = 1000000; // Eins Million
 		
-		// Might need an auto version of this one :| Probably can just to HowFast(int motor, double angle, double gyroval)
+		public TrainDrive(IOStream river) {
+			iPhone = river;
+		}
+		
 		double HowFast(int motor, int Xbox, double gyroval){ // This does all the math :D. Switch takes 0, 60, 120
 			if(gyroval == notGyroVal){
 				gyroval = 0;
 			}
 			switch(motor) {
 			case 0:
-				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) + gyroval + 180)) * iPhone.Magnitude(Xbox) + 0.5 * Drive.rightStickX();
+				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) + gyroval + 180)) * iPhone.Magnitude(Xbox) + 0.5 * iPhone.XboxEins.rightStickX();
 			case 60:
-				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) + 120 + gyroval + 180)) * iPhone.Magnitude(Xbox) + 0.5 * Drive.rightStickX();
+				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) + 120 + gyroval + 180)) * iPhone.Magnitude(Xbox) + 0.5 * iPhone.XboxEins.rightStickX();
 			case 120:
-				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) - 120 + gyroval + 180)) * iPhone.Magnitude(Xbox) + 0.5 * Drive.rightStickX();
+				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) - 120 + gyroval + 180)) * iPhone.Magnitude(Xbox) + 0.5 * iPhone.XboxEins.rightStickX();
 			default:
 				return 0;
 			}
@@ -111,10 +113,11 @@ public class TrainDrive implements RobotMap {
 			Dash.SDNumber("Motor 3 speed", Motor_120);
 			Dash.SDNumber("Rotation Scale", RotationScaleDown);
 			
-			//Drive_0.set(Motor_0 * RotationScaleDown);
-			//Drive_60.set(Motor_60 * RotationScaleDown);
-			//Drive_120.set(Motor_120 * RotationScaleDown);
-			System.out.println(GetGyro());
+			
+			VDrive_0.set(Motor_0 * RotationScaleDown);
+			VDrive_60.set(Motor_60 * RotationScaleDown);
+			VDrive_120.set(Motor_120 * RotationScaleDown);
+			Utils.pl("String ", Heading.getAngle());
 		}
 /*		
 		void BlindKiwi() {
@@ -219,25 +222,25 @@ public class TrainDrive implements RobotMap {
 			System.out.println(GetGyro());
 		}
 */		
-		void KiwiV8Drive() {
-			Motor_0 = HowFast(0, GAMEPAD1, GetGyro());
-			Motor_60 = HowFast(60, GAMEPAD1, GetGyro());
-			Motor_120 = HowFast(120, GAMEPAD1, GetGyro());
-			
-			RotationScaleDown = Math.abs(SetScaleDown(Math.abs(Motor_0), Math.abs(Motor_60), Math.abs(Motor_120)));
-			
-			Dash.SDNumber("Motor 1 speed", Motor_0);
-			Dash.SDNumber("Motor 2 speed", Motor_60);
-			Dash.SDNumber("Motor 3 speed", Motor_120);
-			Dash.SDNumber("Rotation Scale", RotationScaleDown);
-			
-			Dash.SDNumber("TEST", Drive.leftTrigger());
-			
-			VDrive_0.set(Motor_0 * RotationScaleDown);
-			VDrive_60.set(Motor_60 * RotationScaleDown);
-			VDrive_120.set(Motor_120 * RotationScaleDown);
-			System.out.println(GetGyro());
-		}
+//		void KiwiV8Drive() {
+//			Motor_0 = HowFast(0, GAMEPAD1, GetGyro());
+//			Motor_60 = HowFast(60, GAMEPAD1, GetGyro());
+//			Motor_120 = HowFast(120, GAMEPAD1, GetGyro());
+//			
+//			RotationScaleDown = Math.abs(SetScaleDown(Math.abs(Motor_0), Math.abs(Motor_60), Math.abs(Motor_120)));
+//			
+//			Dash.SDNumber("Motor 1 speed", Motor_0);
+//			Dash.SDNumber("Motor 2 speed", Motor_60);
+//			Dash.SDNumber("Motor 3 speed", Motor_120);
+//			Dash.SDNumber("Rotation Scale", RotationScaleDown);
+//			
+//			Dash.SDNumber("TEST", iPhone.XboxEins.leftTrigger());
+//			
+//			VDrive_0.set(Motor_0 * RotationScaleDown);
+//			VDrive_60.set(Motor_60 * RotationScaleDown);
+//			VDrive_120.set(Motor_120 * RotationScaleDown);
+//			System.out.println(GetGyro());
+//		}
 }
 
 

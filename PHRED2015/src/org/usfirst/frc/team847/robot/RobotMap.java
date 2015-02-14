@@ -22,6 +22,9 @@ public interface RobotMap {
 		
 		//Heading\\
 			public final static int GYRO = 1;//This one is used in TrainDrive. I wasn't sure whether
+			
+		//ANALOG ULTRASAAAAAAAAAAAANICS\\
+			public final static int SANIC = 3;
 		
 //* ---------- DIGITAL ---------*\\
 			
@@ -64,9 +67,9 @@ public interface RobotMap {
 //======================================THEOVATOR=============================================\\
 		
 	//::::CANTALONS::::\\
-			public final static int CANTALON_THEOVATOR = 1;
-			public final static int CANTALON_ARMSPRING = 2;
-			public final static int CANTALON_WRIST = 3;
+			public final static int CANTALON_THEOVATOR = 3;
+			public final static int CANTALON_ARMSPRING = 4;
+			public final static int CANTALON_WRIST = 5;
 		
 //====================================ZERGLINGCLAWS===========================================\\
 
@@ -79,7 +82,7 @@ public interface RobotMap {
 			public final static int DSPORT2 = 2;
 			
 		//::::Compressor::::\\
-			public final static int COMPRESSOR = 4;
+			public final static int COMPRESSOR = 2;
 		
 		
 //=======================================ARMSpring============================================\\

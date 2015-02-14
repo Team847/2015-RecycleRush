@@ -13,7 +13,7 @@ public class ZerglingClaws implements RobotMap {
 	DoubleSolenoid DNoir = new DoubleSolenoid(DSPORT1, DSPORT2);
 	Compressor Press = new Compressor(COMPRESSOR);
 	CANTalon Cantalope = new CANTalon(CANTALON_WRIST);
-	GamePad Pad = new GamePad(GAMEPAD2);
+	GamePad Pad;
 	BoarDash Dash = new BoarDash();
 	
 	static int open = 1;
@@ -21,7 +21,13 @@ public class ZerglingClaws implements RobotMap {
 	
 	int clawstatus = open;
 	
+	public ZerglingClaws(GamePad NUKE){
+		Pad = NUKE;
+		Press.start();
+	}
+	
 	void ClawControl(){
+		
 		if (Pad.rBumper() == true && Pad.lBumper() == false){
 			clawstatus = close;
 		}

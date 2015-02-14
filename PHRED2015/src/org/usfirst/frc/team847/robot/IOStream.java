@@ -1,5 +1,7 @@
 package org.usfirst.frc.team847.robot;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+
 public class IOStream implements RobotMap {
 	// If we wanna change stuff from GamePad to standard joystick, just switch 1 and 2 with Eins and Zwei. Or the other way around :|
 	
@@ -7,7 +9,8 @@ public class IOStream implements RobotMap {
 	
 	// Init all those variable yo :D
 	// GamePad integration
-	GamePad XboxEins = new GamePad(GAMEPAD1);
+	GamePad XboxEins;
+	AnalogInput Sanic = new AnalogInput(SANIC);
 	
 	double GyroCompensation = 0;
 	
@@ -15,6 +18,15 @@ public class IOStream implements RobotMap {
 		XboxEins = eins;
 	}
 	
+	void TestTheSanic(){//DELETE ME AFTER THE SANIC IS TESTED!!!!!
+		Dash.SDNumber("huehuehue", Sanic.getAverageVoltage());
+		Utils.pl("huahuahua", Sanic.getAverageVoltage());
+	}
+	double DolphinRangeFinder(){
+		double HowManyInches = ((Sanic.getAverageVoltage() + 0.0010066850176954) / 0.0092716607681216);
+		Dash.SDNumber("HowManyInches", HowManyInches);
+		return HowManyInches;
+	}
 	double DeadZones(double joyin, int lower, int upper, double result) {
 		if(joyin > lower && joyin < upper) {
 			return result;
