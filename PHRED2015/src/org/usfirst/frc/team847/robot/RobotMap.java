@@ -10,7 +10,7 @@ public interface RobotMap {
 		
 			public final static int DRIVE_MOTOR_0 = 1;//the numbers correspond to the degrees
 			public final static int DRIVE_MOTOR_60 = 2;//clockwise from the "nose" of the
-			public final static int DRIVE_MOTOR_120 = 3;//robot. 0 is the motor under the arm
+			public final static int DRIVE_MOTOR_120 = 3;//robot. 0 is the motor under the arm/at the point
 					
 //======================================ARMSPRING=============================================\\
 		
@@ -24,8 +24,9 @@ public interface RobotMap {
 			public final static int GYRO = 1;//This one is used in TrainDrive. I wasn't sure whether
 			
 		//ANALOG ULTRASAAAAAAAAAAAANICS\\
-			public final static int SANIC = 3;
-		
+			public final static int LEFTSANIC = 3; // The left ultra
+			public final static int RIGHTSANIC = 2; // The Right ultra
+			public final static int FRONTSANIC = 0; // The front ultra
 //* ---------- DIGITAL ---------*\\
 			
 	//::::Limit Switches::::\\ SINCE THIS IS THE PROTOBOT BRANCH (SPACESHIPBOT), THESE ARE DIGITAL. ALSO: BECAUSE THIS IS PROTOBT, THERE ARE NO ULTRASANICS FOR THE TIME BEING.

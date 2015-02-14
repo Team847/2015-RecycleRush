@@ -10,7 +10,8 @@ public class IOStream implements RobotMap {
 	// Init all those variable yo :D
 	// GamePad integration
 	GamePad XboxEins;
-	AnalogInput Sanic = new AnalogInput(SANIC);
+	AnalogInput Sanic = new AnalogInput(LEFTSANIC);
+	AnalogInput Sonic = new AnalogInput(RIGHTSANIC); // DON'T GET THEM MIXED UP 0.0
 	
 	double GyroCompensation = 0;
 	
@@ -21,6 +22,8 @@ public class IOStream implements RobotMap {
 	void TestTheSanic(){//DELETE ME AFTER THE SANIC IS TESTED!!!!!
 		Dash.SDNumber("huehuehue", Sanic.getAverageVoltage());
 		Utils.pl("huahuahua", Sanic.getAverageVoltage());
+		Dash.SDNumber("huehuehue", Sonic.getAverageVoltage());
+		Utils.pl("huahuahua", Sonic.getAverageVoltage());
 	}
 	double DolphinRangeFinder(){
 		double HowManyInches = ((Sanic.getAverageVoltage() + 0.0010066850176954) / 0.0092716607681216);
