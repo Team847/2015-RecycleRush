@@ -39,18 +39,19 @@ public interface RobotMap {
 			
 			
 	//::::INFRARED CENSOR::::\\
-			public final static int INFRARED = 5;
+	//		public final static int INFRARED = 5;
 			
 	//::::GearTooth Censor::::\\
 		//Theovator\\
-			public final static int GEARTOOTH_ELEVATOR = 6;
+			public final static int GEARTOOTH_ELEVATOR = 7;
 			
 		//Arm Extension\\
-			public final static int GEARTOOTH_ARM = 7;
+			public final static int GEARTOOTH_ARM = 8;
 	//::::ENCODERS::::\\		
 		
 		//Wrist Position\\
-			public final static int WRIST_ENCODER = 8; 
+			public final static int WRIST_ENCODER1 = 5;
+			public final static int WRIST_ENCODER2 = 6;
 		
 		
 //=======================================AUTONOMS=============================================\\

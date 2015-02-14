@@ -3,6 +3,7 @@ package org.usfirst.frc.team847.robot;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SolenoidBase;
 import edu.wpi.first.wpilibj.AnalogOutput;
@@ -13,6 +14,7 @@ public class ZerglingClaws implements RobotMap {
 	DoubleSolenoid DNoir = new DoubleSolenoid(PCM, DSPORT1, DSPORT2);
 	Compressor Press = new Compressor();
 	CANTalon Cantalope = new CANTalon(CANTALON_WRIST);
+	Encoder coder = new Encoder(WRIST_ENCODER1, WRIST_ENCODER2);
 	GamePad Pad;
 	BoarDash Dash = new BoarDash();
 	
