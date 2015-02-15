@@ -49,6 +49,9 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
+    	// Move Backwards into the AutoZone
+    	//food.justDrive(choochoo, 250, 180, 0.5, 0); //Move Backwards into the AutoZone. 250 notaloops is ~5 sec.
+    	
     	//-------------EXTEND THE ARM-------------\\
     	
     	//-------------GRAB THE BUCKET-------------\\
