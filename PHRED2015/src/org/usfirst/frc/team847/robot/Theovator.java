@@ -22,8 +22,8 @@ public class Theovator implements RobotMap{
 //        Dwagon = new GearTooth(GEARTOOTH_ELEVATOR);
         Motor = new CANTalon(CANTALON_THEOVATOR);
 //        gamePad = new GamePad(GAMEPAD2);//GP2 BECAUSE IT'S OBJECT MANIP
-    	Up = 0.5;
-    	Down = -0.5;
+    	Up = .50;
+    	Down = -1.0;
     	Stop = 0;
     }
     
