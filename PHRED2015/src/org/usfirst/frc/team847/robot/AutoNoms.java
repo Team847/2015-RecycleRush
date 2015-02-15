@@ -10,10 +10,14 @@ public class AutoNoms {
 		chocobo = thomas;
 		iPhone = river;
 	}
+	
+	// notaloop will iterate every 20ms, taking 50 iterations to make up one second
 	void justDrive(TrainDrive chocobo,  int time, double angle, double speed, double turn){ //All this does is drive 0.0
 		if(notaloop < time) {
 			chocobo.KiwiDrive(angle, speed, turn);
 			notaloop++;
 		}
+		else
+			chocobo.KiwiDrive(0,0,0);
 	}
 }
