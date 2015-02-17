@@ -14,12 +14,13 @@ public class ZerglingClaws implements RobotMap {
 	DoubleSolenoid DNoir = new DoubleSolenoid(PCM, DSPORT1, DSPORT2);
 	Compressor Press = new Compressor();
 	CANTalon Cantalope = new CANTalon(CANTALON_WRIST);
-	Encoder coder = new Encoder(WRIST_ENCODER1, WRIST_ENCODER2);
+	//Encoder coder = new Encoder(WRIST_ENCODER1, WRIST_ENCODER2);
 	GamePad Pad;
 	BoarDash Dash = new BoarDash();
 	
 	static int open = 1;
 	static int close = 2;
+	double Speedling = 0;
 	
 	int clawstatus = open;
 	double encodee; // Encoder values
@@ -29,7 +30,7 @@ public class ZerglingClaws implements RobotMap {
 		//Press.start();
 	}
 	public void ZerglingClawsInit() {
-		coder.reset();
+		Cantalope.setPosition(0);
 		
 	}
 	
@@ -46,10 +47,10 @@ public class ZerglingClaws implements RobotMap {
 		}*/
 		
 		if (clawstatus == open){
-			DNoir.set(DoubleSolenoid.Value.kReverse);
+			DNoir.set(DoubleSolenoid.Value.kForward);
 		}
 		if (clawstatus == close){
-			DNoir.set(DoubleSolenoid.Value.kForward);
+			DNoir.set(DoubleSolenoid.Value.kReverse);
 		}
 	}
 	void ClawControl(int openorclose){
@@ -66,14 +67,24 @@ public class ZerglingClaws implements RobotMap {
 		encodee = Cantalope.getEncPosition(); // Encoder will be used to control degree of rotation.
 		
 		if(Pad.leftTrigger() > 0.2) {//no idea if this works
-			Cantalope.set(1.d);
+			Speedling = 0.25;
 		}
 		if(Pad.rightTrigger() > 0.2) {
-			Cantalope.set(-1.d);
+			Speedling = -0.25;
 		}
 		if(Pad.rightTrigger() < 0.2 && Pad.leftTrigger() < 0.2) {
-			Cantalope.set(0);
-		Utils.pl("Encoder Position: ", Cantalope.getEncPosition());
+			Speedling = 0;
+		}	
+		
+		if(encodee > 1080 && Speedling < 0){
+			Speedling = 0;
 		}
+		if(encodee < -996 && Speedling > 0){
+			Speedling = 0;
+		}
+		
+		Cantalope.set(Speedling);
+		//Utils.pl("Encoder Position: ", encodee);
+		Dash.SDNumber("Zergling Claw Encoder", Cantalope.getEncPosition());		
 	}
 }

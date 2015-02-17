@@ -46,11 +46,11 @@ public interface RobotMap {
 			public final static int GEARTOOTH_ELEVATOR = 7;
 			
 		//Arm Extension\\
-			public final static int GEARTOOTH_ARM = 8;
+			public final static int GEARTOOTH_ARM = 6;
 	//::::ENCODERS::::\\		
 		
 		//Wrist Position\\
-			public final static int WRIST_ENCODER1 = 5;
+			public final static int WRIST_ENCODER1 = 5; // LOL nope. Not needed.
 			public final static int WRIST_ENCODER2 = 6;
 		
 		
@@ -92,6 +92,6 @@ public interface RobotMap {
 //=======================================ARMSpring============================================\\
 		
 	//::::Motor::::\\
-		public final static int SPRINGTALON = 1;
+		public final static int SPRINGTALON = 4;
 				
 }

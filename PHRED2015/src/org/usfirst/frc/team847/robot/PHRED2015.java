@@ -89,7 +89,7 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     	lings.ClawControl();
     	choochoo.KiwiDrive();  
     	lings.WristControl();
-    	//armstrong.ArmControl();
+    	armstrong.ArmControl();
     }
     
     /**

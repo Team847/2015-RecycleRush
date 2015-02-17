@@ -42,7 +42,7 @@ public class Theovator implements RobotMap{
     	}*/
 
     	Dwagon.update(MotorSpeed);
-    	//Utils.pl("GearTooth: ", Dwagon.get());
+    	Utils.pl("Elevator GearTooth: ", Dwagon.get());
         Motor.set(MotorSpeed);
     }
     
@@ -76,7 +76,7 @@ public class Theovator implements RobotMap{
     }
     
         private double JoyStickControl(){
-    	double ms = gamePad.leftStickY();
+    	double ms = -gamePad.leftStickY();
         if(ms <-0.2){
             ms = Up;
         }

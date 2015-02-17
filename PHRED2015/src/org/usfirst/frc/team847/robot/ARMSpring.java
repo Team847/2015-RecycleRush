@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.DigitalOutput;
 
 public class ARMSpring implements RobotMap {
 		CANTalon eagle = new CANTalon(SPRINGTALON);
-		DigitalInput InSwitch = new DigitalInput(LIMIT_SWITCH_ARM_RETRACTION);
-		DigitalInput OutSwitch = new DigitalInput(LIMIT_SWITCH_ARM_EXTENSION);
+		GearTooth Wyrm = new GearTooth(GEARTOOTH_ARM);
+		BoarDash Dash = new BoarDash();
 		GamePad jack;
 		
 		int BodyStick = GAMEPAD2;
@@ -21,15 +21,17 @@ public class ARMSpring implements RobotMap {
 			jack = pad;
 		}
 		
+		void ARMSpringInit() {
+			Wyrm.reset();
+		}
 		void ArmControl(){
 			ARMSpeed = (jack.rightStickY());
-			if (InSwitch.get() == true && ARMSpeed < 0){
+			if (ARMSpeed < 0.2 && ARMSpeed > -0.2){
 				ARMSpeed = 0;
 			}
-			if (OutSwitch.get() == true && ARMSpeed > 0){
-				ARMSpeed = 0;
-			}
-			eagle.set(ARMSpeed);
 			
+			Wyrm.update(-ARMSpeed);
+			eagle.set(-ARMSpeed);
+			//Dash.SDNumber("ARM Geartooth: ", Wyrm.get());
 		}
     }
