@@ -47,7 +47,7 @@ public class Theovator implements RobotMap{
     }
     
     private double DpadControl(){
-    	int idx=0, dPad = -1;
+    	int idx = 0, dPad = -1;
     	
     	if((dPad = gamePad.dPad()) >= 0){
     		switch (dPad) {
@@ -77,10 +77,10 @@ public class Theovator implements RobotMap{
     
         private double JoyStickControl(){
     	double ms = -gamePad.leftStickY();
-        if(ms <-0.2){
+        if(ms < 0){
             ms = Up;
         }
-        else if(ms >0.2){
+        else if(ms > 0){
             ms = Down;
         }else{
     		ms=Stop;

@@ -11,10 +11,9 @@ import edu.wpi.first.wpilibj.DigitalOutput;
 public class ARMSpring implements RobotMap {
 		CANTalon eagle = new CANTalon(SPRINGTALON);
 		GearTooth Wyrm = new GearTooth(GEARTOOTH_ARM);
-		BoarDash Dash = new BoarDash();
+		BoarDash Dash  = new BoarDash();
 		GamePad jack;
 		
-		int BodyStick = GAMEPAD2;
 		double ARMSpeed = 0;
 		
 		public ARMSpring(GamePad pad) {
@@ -25,13 +24,17 @@ public class ARMSpring implements RobotMap {
 			Wyrm.reset();
 		}
 		void ArmControl(){
-			ARMSpeed = (jack.rightStickY());
-			if (ARMSpeed < 0.2 && ARMSpeed > -0.2){
-				ARMSpeed = 0;
-			}
+			ARMSpeed = jack.rightStickY();
 			
 			Wyrm.update(-ARMSpeed);
 			eagle.set(-ARMSpeed);
 			//Dash.SDNumber("ARM Geartooth: ", Wyrm.get());
+		}
+		
+		void ArmControl(double speed){  // Used for autonomous
+			ARMSpeed = speed;			// TODO: Add a method for determining when to stop the arm, Ultrasonic sensor?  Presets?
+			
+			Wyrm.update(-ARMSpeed);
+			eagle.set(-ARMSpeed);
 		}
     }

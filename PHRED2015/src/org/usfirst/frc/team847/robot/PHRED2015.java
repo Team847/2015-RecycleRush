@@ -1,6 +1,7 @@
 package org.usfirst.frc.team847.robot;
 
 import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -29,8 +30,8 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
-    public void robotInit() { 
-    Xbox2 = new GamePad(GAMEPAD2);//object manip
+    public void robotInit() {
+    Xbox2 = new GamePad(GAMEPAD2, 0.2, 1.0); //object manip
     Xbox1 = new GamePad(GAMEPAD1);//drive
     iPhone = new IOStream(Xbox1);
     choochoo = new TrainDrive(iPhone);
@@ -45,6 +46,12 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     lings = new ZerglingClaws(Xbox2);
     }
 
+    public void autonomousinit(){
+    	// This is where we will set the auto routine we will run (grabbed from Smartdashboard), and initialize
+    	// any settings.
+    	
+    }
+    
     /**
      * This function is called periodically during autonomous
      */
