@@ -1,6 +1,7 @@
 /PHRED2015/bin/
 /PHRED2015/build/
 /PHRED2015/dist/
+/PHRED2015/sysProps.xml
 *.class
 
 # Mobile Tools for Java (J2ME)
