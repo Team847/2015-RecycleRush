@@ -26,7 +26,9 @@ public interface RobotMap {
 		//ANALOG ULTRASAAAAAAAAAAAANICS\\
 			public final static int LEFTSANIC = 2; // The left ultra
 			public final static int RIGHTSANIC = 3; // The Right ultra
-			public final static int FRONTSANIC = 0; // The front ultra
+		//DIGITAL ULTRASAAAAAAAAAAAANICS\\	
+			public final static int FRONTSANIC1 = 1; // The front ultra input trigger
+			public final static int FRONTSANIC2 = 2;//echo out
 //* ---------- DIGITAL ---------*\\
 			
 	//::::Limit Switches::::\\ SINCE THIS IS THE PROTOBOT BRANCH (SPACESHIPBOT), THESE ARE DIGITAL. ALSO: BECAUSE THIS IS PROTOBT, THERE ARE NO ULTRASANICS FOR THE TIME BEING.

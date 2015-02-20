@@ -52,6 +52,8 @@ public class ZerglingClaws implements RobotMap {
 		if (clawstatus == close){
 			DNoir.set(DoubleSolenoid.Value.kReverse);
 		}
+		
+		
 	}
 	void ClawControl(int openorclose){
 		
