@@ -83,7 +83,7 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     	//choochoo.KiwiV8Drive();
     	//Utils.pl("the inches ", iPhone.DolphinRangeFinder());
     	
-    	Theo.LiftControl();
+    	//Theo.LiftControl();
     	//Dwagon.update(1);
     	//Dash.SDNumber("THIS", Dwagon.get());
     	//Utils.pl("Test", Dwagon.get());
