@@ -80,6 +80,7 @@ public class TrainDrive implements RobotMap {
 		}
 		
 		double GetGyro() { // This gets the heading :D ORCAS ARE COOL
+			Utils.pl("Gyro: ", Heading.getAngle());
 			return iPhone.CompensateGyro(Heading.getAngle());
 		}
 		

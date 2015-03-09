@@ -31,7 +31,7 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
      */
     public void robotInit() { 
     Xbox2 = new GamePad(GAMEPAD2);
-    Xbox1 = new GamePad(GAMEPAD1);
+    Xbox1 = new GamePad(GAMEPAD1, 0.2, 1.0);
     iPhone = new IOStream(Xbox1);
     choochoo = new TrainDrive(iPhone);
     food = new AutoNoms(choochoo, iPhone);

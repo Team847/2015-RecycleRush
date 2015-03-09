@@ -120,7 +120,7 @@ public class IOStream implements RobotMap {
 					rawMagnitude = 1;
 				}
 				
-				if(rawMagnitude < 0.1) { // I WANT FUNCTIONS D:
+				if(rawMagnitude < 0.15) { // I WANT FUNCTIONS D:
 					rawMagnitude = 0;
 				}
 				return rawMagnitude;//THE MATH MIGHT WORK. UNTIL WE TEST--WHO KNOWS
