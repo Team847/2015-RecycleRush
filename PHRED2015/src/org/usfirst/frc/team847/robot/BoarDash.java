@@ -15,4 +15,12 @@ public class BoarDash {
 	void SDString(String label, String value) {
 		SmartDashboard.putString(label, value);
 	}
+	
+	String GetString(String label, String DefValue) {
+		return SmartDashboard.getString(label, DefValue);
+	}
+	
+	double GetNumber(String label, double DefValue) {
+		return SmartDashboard.getNumber(label, DefValue);
+	}
 }

@@ -8,6 +8,8 @@ public class Theovator implements RobotMap{
 	CANTalon Motor;
 	GearTooth Dwagon;
 	GamePad gamePad;
+	
+	double Geartooth;
 	double MotorSpeed;
 	double Up;
 	double Down;
@@ -43,6 +45,24 @@ public class Theovator implements RobotMap{
 
     	Dwagon.update(MotorSpeed);
     	Utils.pl("Elevator GearTooth: ", Dwagon.get());
+        Motor.set(MotorSpeed);
+    }
+    
+    public void LiftControl(double speed){
+    	MotorSpeed=speed;
+    	/*if(MotorSpeed == Stop)
+    		MotorSpeed=DpadControl();*/
+    
+    	/*if((Motor.isFwdLimitSwitchClosed() == true) && MotorSpeed < 0){
+            MotorSpeed=Stop;
+    	}
+    	else if((Motor.isRevLimitSwitchClosed() == true) && MotorSpeed > 0){
+    		MotorSpeed=Stop;
+    	}*/
+
+    	Dwagon.update(MotorSpeed);
+    	Utils.pl("Elevator GearTooth: ", Dwagon.get());
+    	Geartooth = Dwagon.get();
         Motor.set(MotorSpeed);
     }
     

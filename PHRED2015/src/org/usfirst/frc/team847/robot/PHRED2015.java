@@ -35,7 +35,7 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     Xbox1 = new GamePad(GAMEPAD1);//drive
     iPhone = new IOStream(Xbox1);
     choochoo = new TrainDrive(iPhone);
-    food = new AutoNoms(choochoo, iPhone);
+    food = new AutoNoms(choochoo, iPhone, lings, Theo);
     Dash = new BoarDash();
     Dwagon = new GearTooth(GEARTOOTH_ELEVATOR);
     //Dwagon = new CountDragonTeeth();
@@ -50,12 +50,18 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     	// This is where we will set the auto routine we will run (grabbed from Smartdashboard), and initialize
     	// any settings.
     	
+    	/// SmartDashboard is unreliable right now :| vvd what we're gonna do about that.
+    	/// Can code it anyway.
+    	
+    	food.AutoSet();
     }
     
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
+    	food.AutoRun();
+    	
     	// Move Backwards into the AutoZone
     	//food.justDrive(choochoo, 250, 180, 0.5, 0); //Move Backwards into the AutoZone. 250 notaloops is ~5 sec.
     	
