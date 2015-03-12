@@ -30,7 +30,9 @@ public class Theovator implements RobotMap{
     }
     
     public void LiftInit(){
+    	Dwagon.reset();
     }
+    
     public void LiftControl(){
     	MotorSpeed=JoyStickControl();
     	/*if(MotorSpeed == Stop)
@@ -43,6 +45,7 @@ public class Theovator implements RobotMap{
     		MotorSpeed=Stop;
     	}*/
 
+    	
     	Dwagon.update(MotorSpeed);
     	Utils.pl("Elevator GearTooth: ", Dwagon.get());
         Motor.set(MotorSpeed);
@@ -95,7 +98,7 @@ public class Theovator implements RobotMap{
         return Stop; 
     }
     
-        private double JoyStickControl(){
+    private double JoyStickControl(){
     	double ms = -gamePad.leftStickY();
         if(ms < 0){
             ms = Up;
@@ -105,6 +108,11 @@ public class Theovator implements RobotMap{
         }else{
     		ms=Stop;
     	}
+
+        if(gamePad.bButton()){
+    		LiftInit();
+    	}
+
     	return ms;
     }
 }
