@@ -16,8 +16,10 @@ public class ZerglingClaws implements RobotMap {
 	CANTalon Cantalope = new CANTalon(CANTALON_WRIST);
 	//Encoder coder = new Encoder(WRIST_ENCODER1, WRIST_ENCODER2);
 	GamePad Pad;
+	Theovator lift;
 	BoarDash Dash = new BoarDash();
-	
+
+	public final double LIFT_CLAW_STOP = 100;
 	static int open = 1;
 	static int close = 2;
 	double Speedling = 0;
@@ -25,13 +27,13 @@ public class ZerglingClaws implements RobotMap {
 	int clawstatus = open;
 	double encodee; // Encoder values
 	
-	public ZerglingClaws(GamePad NUKE){
+	public ZerglingClaws(GamePad NUKE, Theovator Lift){
 		Pad = NUKE;
+		lift = Lift;
 		//Press.start();
 	}
 	public void ZerglingClawsInit() {
 		Cantalope.setPosition(0);
-		
 	}
 	
 	void ClawControl(){
@@ -40,8 +42,12 @@ public class ZerglingClaws implements RobotMap {
 			clawstatus = close;
 		}
 		if (Pad.rBumper() == false && Pad.lBumper() == true){
-			clawstatus = open;
+			if(lift.noOpenClawPosition())
+				clawstatus = close;
+			else
+				clawstatus = open;
 		} 
+		
 		/*if (Pad.rBumper() == true && Pad.lBumper() == true){
 			clawstatus = clawstatus;
 		}*/
@@ -52,10 +58,6 @@ public class ZerglingClaws implements RobotMap {
 		if (clawstatus == close){
 			DNoir.set(DoubleSolenoid.Value.kReverse);
 		}
-		if(Pad.aButton()){
-			ZerglingClawsInit();
-		}
-		
 	}
 	void ClawControl(int openorclose){
 		
@@ -87,8 +89,21 @@ public class ZerglingClaws implements RobotMap {
 			Speedling = 0;
 		}
 		
+		if(Pad.aButton()){
+			ZerglingClawsInit();
+		}
+		
 		Cantalope.set(Speedling);
 		//Utils.pl("Encoder Position: ", encodee);
 		Dash.SDNumber("Zergling Claw Encoder", Cantalope.getEncPosition());		
+	}
+	
+	public double WristPosition(){
+		return Cantalope.getEncPosition();
+	}
+	
+	public boolean isOpen(){
+		if(clawstatus == open) return true;
+		else return false;
 	}
 }

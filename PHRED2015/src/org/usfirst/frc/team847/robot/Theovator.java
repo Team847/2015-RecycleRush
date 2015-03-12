@@ -8,17 +8,19 @@ public class Theovator implements RobotMap{
 	CANTalon Motor;
 	GearTooth Dwagon;
 	GamePad gamePad;
+	ZerglingClaws zClaw;
 	
 	double Geartooth;
 	double MotorSpeed;
 	double Up;
 	double Down;
 	long Stop;
-	int array[]={300,500,750,1000}; //TODO:fix numbers
+	int[] liftGT={1000, 100, 300}; // Claw No Turn, Clear Tote on Step, 3 Totes on scoring platform 
 
-    public Theovator(GearTooth bite, GamePad pad){
+    public Theovator(GearTooth bite, GamePad pad, ZerglingClaws claw){
     	Dwagon = bite;
     	gamePad = pad;
+    	zClaw = claw;
 //        LimitSwitchTop = new DigitalInput(LIMIT_SWITCH_ELEVATOR_UPPER);
 //        LimitSwitchBottom = new DigitalInput(LIMIT_SWITCH_ELEVATOR_LOWER); //Theo fixed the numbers
 //        Dwagon = new GearTooth(GEARTOOTH_ELEVATOR);
@@ -34,17 +36,19 @@ public class Theovator implements RobotMap{
     }
     
     public void LiftControl(){
+    	if(gamePad.bButton() || Motor.isRevLimitSwitchClosed()){
+    		LiftInit();
+    	}
+    	
     	MotorSpeed=JoyStickControl();
+
     	/*if(MotorSpeed == Stop)
     		MotorSpeed=DpadControl();*/
     
-    	/*if((Motor.isFwdLimitSwitchClosed() == true) && MotorSpeed < 0){
-            MotorSpeed=Stop;
+    	// Code to keep claw from exceeding the height limit
+    	if(zClaw.isOpen() && noOpenClawPosition()){
+   			MotorSpeed = Stop;
     	}
-    	else if((Motor.isRevLimitSwitchClosed() == true) && MotorSpeed > 0){
-    		MotorSpeed=Stop;
-    	}*/
-
     	
     	Dwagon.update(MotorSpeed);
     	Utils.pl("Elevator GearTooth: ", Dwagon.get());
@@ -62,6 +66,10 @@ public class Theovator implements RobotMap{
     	else if((Motor.isRevLimitSwitchClosed() == true) && MotorSpeed > 0){
     		MotorSpeed=Stop;
     	}*/
+    	
+    	if(Motor.isRevLimitSwitchClosed()){
+    		LiftInit();
+    	}
 
     	Dwagon.update(MotorSpeed);
     	Utils.pl("Elevator GearTooth: ", Dwagon.get());
@@ -75,21 +83,21 @@ public class Theovator implements RobotMap{
     	if((dPad = gamePad.dPad()) >= 0){
     		switch (dPad) {
     			case 0:
-    				idx = 0; break;
-    			case 90:
     				idx = 1; break;
-    			case 180:
+    			case 90:
     				idx = 2; break;
-    			case 270:
+    			case 180:
     				idx = 3; break;
+    			case 270:
+    				idx = 4; break;
     			default:
     				idx = -1;
     		}
 
     		if(idx >= 0){
-    			if(array[idx] > Dwagon.get())
+    			if(liftGT[idx] > Dwagon.get())
     				return Up;
-        		else if(array[idx] < Dwagon.get())
+        		else if(liftGT[idx] < Dwagon.get())
         			 return Down;
         		else
         			return Stop;
@@ -109,10 +117,13 @@ public class Theovator implements RobotMap{
     		ms=Stop;
     	}
 
-        if(gamePad.bButton()){
-    		LiftInit();
-    	}
-
     	return ms;
+    }
+    
+    public boolean noOpenClawPosition(){
+		//if(Dwagon.get() >= liftGT[0] && zClaw.WristPosition() >= Math.abs(zClaw.LIFT_CLAW_STOP)){
+    	//	return true;
+    	//else
+    		return false;
     }
 }

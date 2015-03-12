@@ -38,12 +38,12 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     food = new AutoNoms(choochoo, iPhone, lings, Theo);
     Dash = new BoarDash();
     Dwagon = new GearTooth(GEARTOOTH_ELEVATOR);
+    Theo = new Theovator(Dwagon, Xbox2, lings);
+    lings = new ZerglingClaws(Xbox2, Theo);
     //Dwagon = new CountDragonTeeth();
-    Theo = new Theovator(Dwagon, Xbox2);
     Dash.SDString("", "Orcas are the best");
     choochoo.Heading.reset();
     armstrong = new ARMSpring(Xbox2);
-    lings = new ZerglingClaws(Xbox2);
     }
 
     public void autonomousinit(){
