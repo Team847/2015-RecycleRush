@@ -10,6 +10,7 @@ public class AutoNoms {
 		chocobo = thomas;
 		iPhone = river;
 	}
+	
 	void justDrive(TrainDrive chocobo,  int time, double angle, double speed, double turn){ //All this does is drive 0.0
 		if(notaloop < time) {
 			chocobo.KiwiDrive(angle, speed, turn);

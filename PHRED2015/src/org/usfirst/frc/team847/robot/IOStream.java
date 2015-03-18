@@ -12,10 +12,12 @@ public class IOStream implements RobotMap {
 	GamePad XboxEins;
 	AnalogInput Sanic = new AnalogInput(SANIC);
 	
-	double GyroCompensation = 0;
+	double GyroCompensation,rawMagnitude; 
 	
 	public IOStream(GamePad eins){
 		XboxEins = eins;
+		GyroCompensation = 0;
+        rawMagnitude = 0;
 	}
 	
 	void TestTheSanic(){//DELETE ME AFTER THE SANIC IS TESTED!!!!!
@@ -109,12 +111,14 @@ public class IOStream implements RobotMap {
 	}*/
 	
 	double Magnitude(int WhatStickWeUsing) {
-		double rawMagnitude;
+		
 		// Switch to figure out which joystick we want to read.
-		//I'm not sure if getDirectionDegrees even works with the Xbox controllers. can't test now :P
 		switch(WhatStickWeUsing) {
 			case GAMEPAD1:
-				rawMagnitude = XboxEins.getMagnitude();
+//				rawMagnitude = XboxEins.getMagnitude();
+				
+				// Smooth out the acceleration/deceleration by taking away 2/3 of the change in speed
+				rawMagnitude = rawMagnitude + ((XboxEins.getMagnitude() - rawMagnitude)/3); 
 				
 				if(rawMagnitude > 1) {
 					rawMagnitude = 1;
@@ -123,6 +127,7 @@ public class IOStream implements RobotMap {
 				if(rawMagnitude < 0.15) { // I WANT FUNCTIONS D:
 					rawMagnitude = 0;
 				}
+				
 				return rawMagnitude;//THE MATH MIGHT WORK. UNTIL WE TEST--WHO KNOWS
 			case GAMEPAD2:
 		/*		rawMagnitude = XboxZwei.getMagnitude();
@@ -138,6 +143,10 @@ public class IOStream implements RobotMap {
 */			default:
 				return 0;
 		}
+	}
+	
+	double Rotate(){
+		return Math.pow(XboxEins.rightStickX() * 0.5, 2);
 	}
 	
 }

@@ -1,9 +1,5 @@
 package org.usfirst.frc.team847.robot;
-
-import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.IterativeRobot;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -14,41 +10,25 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  **/
 
 public class PHRED2015 extends IterativeRobot implements RobotMap{
-	private GamePad Xbox2;
 	private GamePad Xbox1;
 	private TrainDrive choochoo;
 	private BoarDash Dash;
 	private AutoNoms food;
-	private Theovator Theo;
-	private GearTooth Dwagon;
 	private IOStream iPhone;
+	private boolean done = true;
 	
-	private ARMSpring armstrong;
-	private ZerglingClaws lings;
-    /**
-     * This function is run when the robot is first started up and should be
-     * used for any initialization code.
-     */
     public void robotInit() { 
-    Xbox2 = new GamePad(GAMEPAD2);
-    Xbox1 = new GamePad(GAMEPAD1, 0.2, 1.0);
-    iPhone = new IOStream(Xbox1);
-    choochoo = new TrainDrive(iPhone);
-    food = new AutoNoms(choochoo, iPhone);
-    Dash = new BoarDash();
-    Dwagon = new GearTooth(GEARTOOTH_ELEVATOR);
-    //Dwagon = new CountDragonTeeth();
-    Theo = new Theovator(Dwagon, Xbox2);
-    Dash.SDString("", "Orcas are the best");
-    choochoo.Heading.reset();
-    armstrong = new ARMSpring(Xbox2);
-    lings = new ZerglingClaws(Xbox2);
+    	Xbox1 = new GamePad(GAMEPAD1, 0.15, 1.0);
+    	iPhone = new IOStream(Xbox1);
+    	choochoo = new TrainDrive(iPhone);
+    	food = new AutoNoms(choochoo, iPhone);
+    	Dash = new BoarDash();
+    	Dash.SDString("", "Orcas are the best");
     }
 
-    /**
-     * This function is called periodically during autonomous
-     */
     public void autonomousPeriodic() {
+    	if(initializeRobot() == done) {}
+    	
     	//-------------EXTEND THE ARM-------------\\
     	
     	//-------------GRAB THE BUCKET-------------\\
@@ -77,28 +57,7 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	//choochoo.BlindKiwi();
     	choochoo.KiwiDrive();
-    	
-    	//choochoo.KiwiV8Drive();
-    	//Utils.pl("the inches ", iPhone.DolphinRangeFinder());
-    	
-    	//Theo.LiftControl();
-    	//Dwagon.update(1);
-    	//Dash.SDNumber("THIS", Dwagon.get());
-    	//Utils.pl("Test", Dwagon.get());
-    	//armstrong.JackInTheBox();
-    	//Dwagon.UpdateDirection(choochoo.Motor_0, Dooku);
-    	//Dwagon.CountDragons(Dooku);*/
-    	
-    	//choochoo.Calibrate();
-    	//Dash.SDString("Orcas", "Win");
-    	/*
-    	//System.out.println(((Math.sin(Math.toRadians(choochoo.iPhone.getAxisDegree(choochoo.iPhone.WhatXboxWeUsing))))));
-    	//System.out.println((((4.0))));
-    	//System.out.println(((Math.sin(Math.toRadians(choochoo.iPhone.getAxisDegree(choochoo.iPhone.WhatXboxWeUsing))))) + ((Math.sin(Math.toRadians(choochoo.iPhone.getAxisDegree(choochoo.iPhone.WhatXboxWeUsing) + 120)))) + ((Math.sin(Math.toRadians(choochoo.iPhone.getAxisDegree(choochoo.iPhone.WhatXboxWeUsing) - 120)))));	
-    	!*!*!*!*!*!*!*!*!*!*!*!HERE MARKS THE POINT WHERE KEN WAS RIGHT. +-120 IS THE TRUE PATH!*!*!*!*!*!*!*!*!*!*!*!
-   		*/
     }
     
     /**
@@ -106,6 +65,11 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
      */
     public void testPeriodic() {
     //I am testing to see if comments do anything in the test section.
+    }
+    
+    private boolean initializeRobot(){
+    	choochoo.initDrive();
+    	return true;
     }
     
 }

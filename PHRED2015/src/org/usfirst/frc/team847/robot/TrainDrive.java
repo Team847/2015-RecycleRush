@@ -10,9 +10,6 @@ public class TrainDrive implements RobotMap {
 		Gyro Heading = new Gyro(GYRO);		
 		BoarDash Dash = new BoarDash();
 		IOStream iPhone;
-		/*Talon Drive_0 = new Talon(DRIVE_MOTOR_0);
-		Talon Drive_60 = new Talon(DRIVE_MOTOR_60);
-		Talon Drive_120 = new Talon(DRIVE_MOTOR_120);*/
 		
 		Victor VDrive_0 = new Victor(DRIVE_MOTOR_0);
 		Victor VDrive_60 = new Victor(DRIVE_MOTOR_60);
@@ -32,17 +29,22 @@ public class TrainDrive implements RobotMap {
 			iPhone = river;
 		}
 		
+		public boolean initDrive(){
+			Heading.reset();
+			return true;
+		}
+		
 		double HowFast(int motor, int Xbox, double gyroval){ // This does all the math :D. Switch takes 0, 60, 120
 			if(gyroval == notGyroVal){
 				gyroval = 0;
 			}
 			switch(motor) {
 			case 0:
-				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) + gyroval + 180)) * iPhone.Magnitude(Xbox) + 0.5 * iPhone.XboxEins.rightStickX();
+				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) + gyroval + 180)) * iPhone.Magnitude(Xbox) + iPhone.Rotate();//0.5 * iPhone.XboxEins.rightStickX();
 			case 60:
-				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) + 120 + gyroval + 180)) * iPhone.Magnitude(Xbox) + 0.5 * iPhone.XboxEins.rightStickX();
+				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) + 120 + gyroval + 180)) * iPhone.Magnitude(Xbox) + iPhone.Rotate();//0.5 * iPhone.XboxEins.rightStickX();
 			case 120:
-				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) - 120 + gyroval + 180)) * iPhone.Magnitude(Xbox) + 0.5 * iPhone.XboxEins.rightStickX();
+				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) - 120 + gyroval + 180)) * iPhone.Magnitude(Xbox) + iPhone.Rotate();//0.5 * iPhone.XboxEins.rightStickX();
 			default:
 				return 0;
 			}
