@@ -1,7 +1,5 @@
 package org.usfirst.frc.team847.robot;
 
-import edu.wpi.first.wpilibj.AnalogInput;
-
 public class IOStream implements RobotMap {
 	// If we wanna change stuff from GamePad to standard joystick, just switch 1 and 2 with Eins and Zwei. Or the other way around :|
 	
@@ -10,26 +8,15 @@ public class IOStream implements RobotMap {
 	// Init all those variable yo :D
 	// GamePad integration
 	GamePad XboxEins;
-	AnalogInput Sanic = new AnalogInput(LEFTSANIC);
-	AnalogInput Sonic = new AnalogInput(RIGHTSANIC); // DON'T GET THEM MIXED UP 0.0
 	
-	double GyroCompensation = 0;
+	double GyroCompensation,rawMagnitude; 
 	
 	public IOStream(GamePad eins){
 		XboxEins = eins;
+		GyroCompensation = 0;
+	    rawMagnitude = 0;
 	}
 	
-	void TestTheSanic(){//DELETE ME AFTER THE SANIC IS TESTED!!!!!
-		Dash.SDNumber("huehuehue", Sanic.getAverageVoltage());
-		Utils.pl("huahuahua", Sanic.getAverageVoltage());
-		Dash.SDNumber("huehuehue", Sonic.getAverageVoltage());
-		Utils.pl("huahuahua", Sonic.getAverageVoltage());
-	}
-	double DolphinRangeFinder(){
-		double HowManyInches = ((Sanic.getAverageVoltage() + 0.0010066850176954) / 0.0092716607681216);
-		Dash.SDNumber("HowManyInches", HowManyInches);
-		return HowManyInches;
-	}
 	double DeadZones(double joyin, int lower, int upper, double result) {
 		if(joyin > lower && joyin < upper) {
 			return result;
@@ -112,12 +99,14 @@ public class IOStream implements RobotMap {
 	}*/
 	
 	double Magnitude(int WhatStickWeUsing) {
-		double rawMagnitude;
 		// Switch to figure out which joystick we want to read.
 		//I'm not sure if getDirectionDegrees even works with the Xbox controllers. can't test now :P
 		switch(WhatStickWeUsing) {
 			case GAMEPAD1:
-				rawMagnitude = XboxEins.getMagnitude();
+			    //	rawMagnitude = XboxEins.getMagnitude();
+				
+				// Smooth out the acceleration/deceleration by taking away 2/3 of the change in speed
+				rawMagnitude = rawMagnitude + ((XboxEins.getMagnitude() - rawMagnitude)/3); 
 				
 				if(rawMagnitude > 1) {
 					rawMagnitude = 1;
@@ -141,6 +130,10 @@ public class IOStream implements RobotMap {
 */			default:
 				return 0;
 		}
+	}
+
+	double Rotate(){
+		return Math.pow(XboxEins.rightStickX() * 0.5, 2);
 	}
 	
 }

@@ -28,6 +28,9 @@ public class TrainDrive implements RobotMap {
 		public TrainDrive(IOStream river) {
 			iPhone = river;
 		}
+		public void initDrive(){
+			Heading.reset();
+		}
 		
 		double HowFast(int motor, int Xbox, double gyroval){ // This does all the math :D. Switch takes 0, 60, 120
 			if(gyroval == notGyroVal){
@@ -35,16 +38,15 @@ public class TrainDrive implements RobotMap {
 			}
 			switch(motor) {
 			case 0:
-				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) + gyroval + 180)) * iPhone.Magnitude(Xbox) + 0.5 * iPhone.XboxEins.rightStickX();
+				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) + gyroval + 180)) * iPhone.Magnitude(Xbox) + iPhone.Rotate();//0.5 * iPhone.XboxEins.rightStickX();
 			case 60:
-				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) + 120 + gyroval + 180)) * iPhone.Magnitude(Xbox) + 0.5 * iPhone.XboxEins.rightStickX();
+				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) + 120 + gyroval + 180)) * iPhone.Magnitude(Xbox) + iPhone.Rotate();//0.5 * iPhone.XboxEins.rightStickX();
 			case 120:
-				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) - 120 + gyroval + 180)) * iPhone.Magnitude(Xbox) + 0.5 * iPhone.XboxEins.rightStickX();
+				return Math.sin(Math.toRadians(iPhone.getAxisDegree(Xbox) - 120 + gyroval + 180)) * iPhone.Magnitude(Xbox) + iPhone.Rotate();//0.5 * iPhone.XboxEins.rightStickX();
 			default:
 				return 0;
 			}
 		}
-
 		
 		double HowFast(int motor, double angle, double speed, double turn, double gyroval){ // This is the version for autonomous
 			if(gyroval == notGyroVal){
