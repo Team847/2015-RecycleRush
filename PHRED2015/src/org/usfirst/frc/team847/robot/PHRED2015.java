@@ -26,6 +26,8 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
 	
 	private ARMSpring armstrong;
 	private ZerglingClaws lings;
+	
+	private boolean robotPrepDone = false;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -60,7 +62,10 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	food.AutoRun();
+    	if(!robotPrepDone)
+    		robotPrep();
+    	else
+    		food.AutoRun();
     	
     	// Move Backwards into the AutoZone
     	//food.justDrive(choochoo, 250, 180, 0.5, 0); //Move Backwards into the AutoZone. 250 notaloops is ~5 sec.
@@ -95,8 +100,8 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     public void teleopInit() {
     	Dwagon.reset();
     	lings.ZerglingClawsInit();
-    	
     }
+    
     public void teleopPeriodic() {
     	Theo.LiftControl();	
     	lings.ClawControl();
@@ -111,5 +116,9 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     public void testPeriodic() {
     //I am testing to see if comments do anything in the test section.
     }
-    
+
+    private void robotPrep(){
+    	if(Theo.LiftControl(liftPS.BOTTOM) == STOP && armstrong.ArmControl(armPS.IN) == STOP)
+    		robotPrepDone = true;
+    }
 }

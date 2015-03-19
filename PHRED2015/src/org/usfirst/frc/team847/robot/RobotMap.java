@@ -74,6 +74,10 @@ public interface RobotMap {
 			public final static int CANTALON_THEOVATOR = 3;
 			public final static int CANTALON_ARMSPRING = 4;
 			public final static int CANTALON_WRIST = 5;
+			
+			public enum liftPS {BOTTOM, STEP_TOTE, THREE_TOTES, NT_CLAW, TOP};
+			public final static double STOP = 0.0;
+
 		
 //====================================ZERGLINGCLAWS===========================================\\
 
@@ -95,5 +99,6 @@ public interface RobotMap {
 		
 	//::::Motor::::\\
 		public final static int SPRINGTALON = 4;
+		public enum armPS {IN, STEP_RC, OUT};
 				
 }

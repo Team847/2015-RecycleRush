@@ -15,7 +15,8 @@ public class Theovator implements RobotMap{
 	double Up;
 	double Down;
 	long Stop;
-	int[] liftGT={1000, 100, 300}; // Claw No Turn, Clear Tote on Step, 3 Totes on scoring platform 
+	boolean done = false; 
+	int[] liftGT={0, 0, 100, 300, 1000, 2000}; // Not Used, Bottom, Clear Tote on Step, Clear 3 Totes, Claw No Turn, Top
 
     public Theovator(GearTooth bite, GamePad pad, ZerglingClaws claw){
     	Dwagon = bite;
@@ -26,7 +27,7 @@ public class Theovator implements RobotMap{
 //        Dwagon = new GearTooth(GEARTOOTH_ELEVATOR);
         Motor = new CANTalon(CANTALON_THEOVATOR);
 //        gamePad = new GamePad(GAMEPAD2);//GP2 BECAUSE IT'S OBJECT MANIP
-    	Up = .50;
+    	Up = 1.0;
     	Down = -1.0;
     	Stop = 0;
     }
@@ -40,10 +41,10 @@ public class Theovator implements RobotMap{
     		LiftInit();
     	}
     	
-    	MotorSpeed=JoyStickControl();
+    	MotorSpeed = JoyStickControl();
 
-    	/*if(MotorSpeed == Stop)
-    		MotorSpeed=DpadControl();*/
+    	if(MotorSpeed == Stop)
+    		MotorSpeed = moveToPreset();
     
     	// Code to keep claw from exceeding the height limit
     	if(zClaw.isOpen() && noOpenClawPosition()){
@@ -56,17 +57,20 @@ public class Theovator implements RobotMap{
     }
     
     public void LiftControl(double speed){
-    	MotorSpeed=speed;
-    	/*if(MotorSpeed == Stop)
-    		MotorSpeed=DpadControl();*/
-    
-    	/*if((Motor.isFwdLimitSwitchClosed() == true) && MotorSpeed < 0){
-            MotorSpeed=Stop;
+    	MotorSpeed = speed;
+
+    	// Code to keep claw from exceeding the height limit
+    	if(zClaw.isOpen() && noOpenClawPosition()){
+   			MotorSpeed = Stop;
     	}
-    	else if((Motor.isRevLimitSwitchClosed() == true) && MotorSpeed > 0){
-    		MotorSpeed=Stop;
-    	}*/
     	
+    	Dwagon.update(MotorSpeed);
+    	Utils.pl("Elevator GearTooth: ", Dwagon.get());
+        Motor.set(MotorSpeed);
+    }
+
+    public double LiftControl(liftPS preset){
+    	MotorSpeed = moveToPreset(preset);
     	if(Motor.isRevLimitSwitchClosed()){
     		LiftInit();
     	}
@@ -75,21 +79,24 @@ public class Theovator implements RobotMap{
     	Utils.pl("Elevator GearTooth: ", Dwagon.get());
     	Geartooth = Dwagon.get();
         Motor.set(MotorSpeed);
+        
+        return MotorSpeed;
     }
     
-    private double DpadControl(){
+    // Manual move to preset using the dPad
+    private double moveToPreset(){
     	int idx = 0, dPad = -1;
     	
     	if((dPad = gamePad.dPad()) >= 0){
     		switch (dPad) {
     			case 0:
-    				idx = 1; break;
+    				idx = 1; break;  // Bottom
     			case 90:
-    				idx = 2; break;
+    				idx = 2; break;  // Step Tote
     			case 180:
-    				idx = 3; break;
+    				idx = 3; break;  // 3 Totes
     			case 270:
-    				idx = 4; break;
+    				idx = 5; break;  // Top
     			default:
     				idx = -1;
     		}
@@ -105,7 +112,31 @@ public class Theovator implements RobotMap{
         }
         return Stop; 
     }
-    
+
+    // Auto move to preset. Used for autonomous
+    private double moveToPreset(liftPS preset){
+    	int idx;
+    	double ms = Stop;
+    	
+   		switch (preset) {
+   			case BOTTOM:		idx = 1; break;
+   			case STEP_TOTE:		idx = 2; break;
+   			case THREE_TOTES:	idx = 3; break;
+   			case NT_CLAW:		idx = 4; break;
+   			case TOP:			idx = 5; break;
+   			default:			idx = 0;
+   		}
+
+   		if(idx > 0){
+   			if(liftGT[idx] > Dwagon.get())
+   				ms = Up;
+       		else if(liftGT[idx] < Dwagon.get())
+       			ms = Down;
+       	}
+
+   		return ms; 
+    }
+
     private double JoyStickControl(){
     	double ms = -gamePad.leftStickY();
         if(ms < 0){
@@ -114,14 +145,14 @@ public class Theovator implements RobotMap{
         else if(ms > 0){
             ms = Down;
         }else{
-    		ms=Stop;
+    		ms = Stop;
     	}
 
     	return ms;
     }
     
     public boolean noOpenClawPosition(){
-		//if(Dwagon.get() >= liftGT[0] && zClaw.WristPosition() >= Math.abs(zClaw.LIFT_CLAW_STOP)){
+		//if(Dwagon.get() >= liftGT[3] && zClaw.WristPosition() >= Math.abs(zClaw.LIFT_CLAW_STOP)){
     	//	return true;
     	//else
     		return false;
