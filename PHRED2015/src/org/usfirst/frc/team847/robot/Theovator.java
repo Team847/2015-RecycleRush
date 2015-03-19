@@ -3,8 +3,8 @@ package org.usfirst.frc.team847.robot;
 import edu.wpi.first.wpilibj.*;
 
 public class Theovator implements RobotMap{
-	DigitalInput LimitSwitchTop;
-	DigitalInput LimitSwitchBottom;
+//	DigitalInput LimitSwitchTop;
+//	DigitalInput LimitSwitchBottom;
 	CANTalon Motor;
 	GearTooth Dwagon;
 	GamePad gamePad;
@@ -14,7 +14,7 @@ public class Theovator implements RobotMap{
 	double MotorSpeed;
 	double Up;
 	double Down;
-	long Stop;
+	double Stop;
 	boolean done = false; 
 	int[] liftGT={0, 0, 100, 300, 1000, 2000}; // Not Used, Bottom, Clear Tote on Step, Clear 3 Totes, Claw No Turn, Top
 
@@ -27,9 +27,9 @@ public class Theovator implements RobotMap{
 //        Dwagon = new GearTooth(GEARTOOTH_ELEVATOR);
         Motor = new CANTalon(CANTALON_THEOVATOR);
 //        gamePad = new GamePad(GAMEPAD2);//GP2 BECAUSE IT'S OBJECT MANIP
-    	Up = 1.0;
+    	Up   =  1.0;
     	Down = -1.0;
-    	Stop = 0;
+    	Stop =  0.0;
     }
     
     public void LiftInit(){
