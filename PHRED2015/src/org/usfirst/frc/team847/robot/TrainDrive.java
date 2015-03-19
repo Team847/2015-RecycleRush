@@ -29,9 +29,8 @@ public class TrainDrive implements RobotMap {
 			iPhone = river;
 		}
 		
-		public boolean initDrive(){
+		public void initDrive(){
 			Heading.reset();
-			return true;
 		}
 		
 		double HowFast(int motor, int Xbox, double gyroval){ // This does all the math :D. Switch takes 0, 60, 120
@@ -74,9 +73,9 @@ public class TrainDrive implements RobotMap {
 			if(temp > 1 || temp < -1){
 				temp = 1;
 			}
-			if(iPhone.Magnitude(1) > 0.9){
-				temp = 1 / Utils.findMax(eins, zwei, drei);
-			}
+//			if(iPhone.Magnitude(1) > 0.9){
+//				temp = 1 / Utils.findMax(eins, zwei, drei);
+//			}
 			
 			return temp;
 		}

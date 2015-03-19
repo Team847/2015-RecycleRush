@@ -15,42 +15,31 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
 	private BoarDash Dash;
 	private AutoNoms food;
 	private IOStream iPhone;
-	private boolean done = true;
 	
-    public void robotInit() { 
+    public void robotInit() {
     	Xbox1 = new GamePad(GAMEPAD1, 0.15, 1.0);
+    	
     	iPhone = new IOStream(Xbox1);
+    	
     	choochoo = new TrainDrive(iPhone);
-    	food = new AutoNoms(choochoo, iPhone);
+    	choochoo.initDrive();
+    	
+    	food = new AutoNoms(choochoo);
+    	
     	Dash = new BoarDash();
     	Dash.SDString("", "Orcas are the best");
     }
 
     public void autonomousPeriodic() {
-    	if(initializeRobot() == done) {}
     	
-    	//-------------EXTEND THE ARM-------------\\
-    	
-    	//-------------GRAB THE BUCKET-------------\\
-    	
-    	//-------------RETRACT THE ARM-------------\\
+    	food.reset();
+    	food.justDrive(2, 0.0, 0.25, 0.0); // Move forward at 1/4 speed for 2 seconds with zero rotational.
     	
     	//-------------TURN AROUND-------------\\
-    	//food.justDrive(choochoo, 5, 0, 0, .5); //TURN TO THE RIGHT FOR 5 SECONDO
-    	
-    	//-------------RELEASE THE BOX-------------\\
+    	//food.justDrive(5, 0, 0, .5); //TURN TO THE RIGHT FOR 5 SECONDO
     	
     	//-------------MOVE TO THE NEXT BOX WHILE TURNING-------------\\
-    	//food.justDrive(choochoo, 5, 270, .5, -.5);//MOVE TO THE NEXT BOX WHILE UNDOING THE TURN
-    	
-    	//-------------EXTEND THE ARM-------------\\
-    	
-    	//-------------GRAB THE CONTAINER-------------\\
-    	
-    	//-------------RETRACT THE ARM-------------\\
-    	
-    	//-------------TELEOP HAS SURELY STARTED BY NOW-------------\\
-    	//Dwagon.UpdateDirection(3333);
+    	//food.justDrive(5, 270, .5, -.5);//MOVE TO THE NEXT BOX WHILE UNDOING THE TURN    	
     }
 
     /**
@@ -66,10 +55,4 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     public void testPeriodic() {
     //I am testing to see if comments do anything in the test section.
     }
-    
-    private boolean initializeRobot(){
-    	choochoo.initDrive();
-    	return true;
-    }
-    
 }

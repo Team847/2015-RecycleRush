@@ -4,31 +4,23 @@ import edu.wpi.first.wpilibj.AnalogInput;
 
 public class IOStream implements RobotMap {
 	// If we wanna change stuff from GamePad to standard joystick, just switch 1 and 2 with Eins and Zwei. Or the other way around :|
-	
-	BoarDash Dash = new BoarDash();
-	
 	// Init all those variable yo :D
 	// GamePad integration
+	
+	BoarDash Dash;
 	GamePad XboxEins;
-	AnalogInput Sanic = new AnalogInput(SANIC);
 	
 	double GyroCompensation,rawMagnitude; 
 	
 	public IOStream(GamePad eins){
 		XboxEins = eins;
+
+		Dash = new BoarDash();
+
 		GyroCompensation = 0;
         rawMagnitude = 0;
 	}
 	
-	void TestTheSanic(){//DELETE ME AFTER THE SANIC IS TESTED!!!!!
-		Dash.SDNumber("huehuehue", Sanic.getAverageVoltage());
-		Utils.pl("huahuahua", Sanic.getAverageVoltage());
-	}
-	double DolphinRangeFinder(){
-		double HowManyInches = ((Sanic.getAverageVoltage() + 0.0010066850176954) / 0.0092716607681216);
-		Dash.SDNumber("HowManyInches", HowManyInches);
-		return HowManyInches;
-	}
 	double DeadZones(double joyin, int lower, int upper, double result) {
 		if(joyin > lower && joyin < upper) {
 			return result;
@@ -46,27 +38,9 @@ public class IOStream implements RobotMap {
 		return Angle - GyroCompensation;
 	}
 	
-	//This might not be needed if similar funionality is put into GamePad also plz change name of gamepad is bad D:
-	/*double getAxisValue(int joystick, int axis) { // This one reads the axis value of the joysticks :D
-		switch(joystick) {
-			case GAMEPAD1: 
-				 // just realized that we need degrees, not x/y values.
-				if(XboxEins.getRawAxis(axis) > -.12 && XboxEins.getRawAxis(axis) <.12){
-					return 0;
-				}
-				else{
-					return XboxEins.getRawAxis(axis); 
-				}
-			case GAMEPAD2:
-				return XboxZwei.getRawAxis(axis); 
-			default:
-				return 0.d;
-			}		
-	}*/
-	
 	double getAxisDegree(int joystick) {
 		// Switch to figure out which joystick we want to read.
-		//I'm not sure if getDirectionDegrees even works with the Xbox controllers. can't test now :P
+		// I'm not sure if getDirectionDegrees even works with the Xbox controllers. can't test now :P
 		double RawDegree;
 		switch(joystick) {
 			case GAMEPAD1:
