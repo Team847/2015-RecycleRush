@@ -27,25 +27,24 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
 	private ARMSpring armstrong;
 	private ZerglingClaws lings;
 	
-	private boolean robotPrepDone = false;
+	private boolean robotPrepDone;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-    Xbox2 = new GamePad(GAMEPAD2, 0.2, 1.0); //object manip
+    Xbox2 = new GamePad(GAMEPAD2, 0.15, 1.0); //object manip
     Xbox1 = new GamePad(GAMEPAD1);//drive
     iPhone = new IOStream(Xbox1);
     choochoo = new TrainDrive(iPhone);
-    food = new AutoNoms(choochoo, iPhone, lings, Theo);
     Dash = new BoarDash();
-    Dwagon = new GearTooth(GEARTOOTH_ELEVATOR);
-    Theo = new Theovator(Dwagon, Xbox2, lings);
+    Theo = new Theovator(Xbox2, lings);
     lings = new ZerglingClaws(Xbox2, Theo);
-    //Dwagon = new CountDragonTeeth();
-    Dash.SDString("", "Orcas are the best");
-    choochoo.Heading.reset();
     armstrong = new ARMSpring(Xbox2);
+    food = new AutoNoms(choochoo, iPhone, lings, Theo, armstrong);
+    choochoo.Heading.reset();
+    robotPrepDone = false;
+    Dash.SDString("", "Orcas are the best");
     }
 
     public void autonomousinit(){
@@ -98,7 +97,7 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
      * This function is called periodically during operator control
      */
     public void teleopInit() {
-    	Dwagon.reset();
+    	Theo.LiftInit();
     	lings.ZerglingClawsInit();
     }
     

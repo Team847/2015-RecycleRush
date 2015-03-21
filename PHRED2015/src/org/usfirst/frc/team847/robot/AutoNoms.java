@@ -12,29 +12,33 @@ public class AutoNoms implements RobotMap{
 	private IOStream iPhone;
 	private ZerglingClaws lings;
 	private Theovator theo;
+	private ARMSpring arm;
 	
 	int UP = 433;
 	int DOWN = 8276;
 	
 	int notaloop = 0;
 	int AutoRoutine = 1;
-	private boolean done;
+	int stepidx;
+	private boolean stepDone;
 	
-	public AutoNoms(TrainDrive thomas, IOStream river, ZerglingClaws speedlings, Theovator Thel){
+	public AutoNoms(TrainDrive thomas, IOStream river, ZerglingClaws speedlings, Theovator Thel, ARMSpring Arm){
 		chocobo = thomas;
 		iPhone = river;
 		lings = speedlings;
 		theo = Thel;
+		arm = Arm;
 		Sanic = new AnalogInput(RIGHTSANIC);
-		reset();
 	}
 
 	public void reset(){
-		done = false;
+		stepDone = false;
+		stepidx = 0;
 		notaloop = 0;
 	}
 	
 	void AutoSet(){
+		reset();
 		switch(Dash.GetString("Auto Mode", "Drive Forward")) {
 			case "Drive Forward":
 				AutoRoutine = 5;
@@ -59,7 +63,7 @@ public class AutoNoms implements RobotMap{
 				AutoBin_Alpha();
 				break;
 			case 15:
-				// HI
+				AutoBin_Step();
 				break;
 			default:
 				break;
@@ -67,7 +71,7 @@ public class AutoNoms implements RobotMap{
 	}
 	
 	void ForwardDrive() { // Drive forward for a certain amount of time :D 
-		justDrive(chocobo, 2, 0, 0.5, 0);
+		justDrive(2, 0, 0.5, 0);
 	}
 	
 	void AutoBin_Alpha(){
@@ -77,39 +81,56 @@ public class AutoNoms implements RobotMap{
 		TheoTime(theo, UP, 20);
 		
 		if(move1){
-			justDrive(chocobo, 2, 0, 0.5, 0.5);
+			justDrive(2, 0, 0.5, 0.5);
 			move1 = false;
 			move2 = true;
 		}
 		
 		if(move2){
-			justDrive(chocobo, 2, 0, 0.5, 0);
+			justDrive(2, 0, 0.5, 0);
 			move2 = false;
 		}
 	}
 	
+	void AutoBin_Step(){
+		theo.LiftControl(liftPS.STEP_TOTE); // Raise the arm to step height
+
+		switch(stepidx){
+			case 0: justDrive(2.0, 0, 0.4, 0); // Drive into the landfill gap
+					AutoClaw(lings, true);
+					break;
+			case 1:	justDrive(1.0, 0, 0, 0.25); // Rotate to face the RC
+					break;
+			case 2: if(arm.ArmControl(armPS.STEP_RC) == STOP) // Extend the arm to the RC
+						stepDone = true;
+					AutoClaw(lings, false);
+					break;
+			default:
+		}
+		if(stepDone){stepidx++; stepDone = false;}
+	}
+
+	
 	// notaloop will iterate every 20ms, taking 50 iterations to make up one second
-	boolean justDrive(TrainDrive chocobo,  int time, double angle, double speed, double turn){ //All this does is drive 0.0
+	public void justDrive(double time, double angle, double speed, double turn){ //All this does is drive 0.0
 		if(notaloop < time * 50) {
 			chocobo.KiwiDrive(angle, speed, turn);
 			notaloop++;
 		}
 		else {
-			done = true;
+			stepDone = true;
 			chocobo.KiwiDrive(0,0,0);
 		}
-		return done;
 	}
 
 	// Drive based on distance to an object
-	public boolean justDrive(double range, double angle, double speed, double turn){
+	public void justDrive(int time, double angle, double speed, double turn, double range){
 		if(RangeInches() > range)
 			chocobo.KiwiDrive(angle, speed, turn);
 		else {
-			done = true;
-			chocobo.KiwiDrive(0, 0, 0);
+			stepDone = true;
+			chocobo.KiwiDrive(0,0,0);
 		}
-		return done;
 	}
 
 	private double RangeInches(){
@@ -130,10 +151,16 @@ public class AutoNoms implements RobotMap{
 			lings.ClawControl(OPENCLAW);
 		}
 	}
-	
+
 	void TheoTime(Theovator theo, int direction, double geartooth) {
 		if(theo.Geartooth < geartooth && direction == UP) {
 			theo.LiftControl(-0.5);
 		}
 	}
+	
+//	void TheoTime(Theovator theo, int direction, double geartooth) {
+//		if(theo.Geartooth < geartooth && direction == UP) {
+//			theo.LiftControl(-0.5);
+//		}
+//	}
 }

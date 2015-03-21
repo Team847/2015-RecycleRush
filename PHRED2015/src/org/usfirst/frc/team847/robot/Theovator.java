@@ -18,16 +18,14 @@ public class Theovator implements RobotMap{
 	boolean done = false; 
 	int[] liftGT={0, 0, 100, 300, 1000, 2000}; // Not Used, Bottom, Clear Tote on Step, Clear 3 Totes, Claw No Turn, Top
 
-    public Theovator(GearTooth bite, GamePad pad, ZerglingClaws claw){
-    	Dwagon = bite;
+    public Theovator(GamePad pad, ZerglingClaws claw){
     	gamePad = pad;
     	zClaw = claw;
-//        LimitSwitchTop = new DigitalInput(LIMIT_SWITCH_ELEVATOR_UPPER);
-//        LimitSwitchBottom = new DigitalInput(LIMIT_SWITCH_ELEVATOR_LOWER); //Theo fixed the numbers
-//        Dwagon = new GearTooth(GEARTOOTH_ELEVATOR);
+
+    	Dwagon = new GearTooth(GEARTOOTH_ELEVATOR);
         Motor = new CANTalon(CANTALON_THEOVATOR);
-//        gamePad = new GamePad(GAMEPAD2);//GP2 BECAUSE IT'S OBJECT MANIP
-    	Up   =  1.0;
+
+        Up   =  1.0;
     	Down = -1.0;
     	Stop =  0.0;
     }
@@ -37,7 +35,7 @@ public class Theovator implements RobotMap{
     }
     
     public void LiftControl(){
-    	if(gamePad.bButton() || Motor.isRevLimitSwitchClosed()){
+    	if(Motor.isRevLimitSwitchClosed()){
     		LiftInit();
     	}
     	
@@ -52,8 +50,10 @@ public class Theovator implements RobotMap{
     	}
     	
     	Dwagon.update(MotorSpeed);
-    	Utils.pl("Elevator GearTooth: ", Dwagon.get());
         Motor.set(MotorSpeed);
+
+    	Utils.pl("Elevator GearTooth: ", Dwagon.get());
+
     }
     
     public void LiftControl(double speed){
