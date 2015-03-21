@@ -90,24 +90,21 @@ public class IOStream implements RobotMap {
 		switch(WhatStickWeUsing) {
 			case GAMEPAD1:
 				
-//				double speed;
-				double tempMag = rawMagnitude;
+				double prevMag = rawMagnitude;
 				rawMagnitude = XboxEins.getMagnitude();
 				
 				if(rawMagnitude > 1.0) {
 					rawMagnitude = 1.0;
 				}
 				
-				if(tempMag < 0.10 && rawMagnitude < 0.10)
+				if(prevMag < 0.10 && rawMagnitude < 0.10)
 					rawMagnitude = 0;
 				else
 					// Smooth out the acceleration/deceleration by taking away some of the change in speed
-					rawMagnitude = tempMag + ((rawMagnitude - tempMag)/100);
+					rawMagnitude = prevMag + ((rawMagnitude - prevMag)/100);
 
-//				Utils.pl("T: ",tempMag);
+//				Utils.pl("P: ",prevMag);
 //				Utils.pl("M: ",rawMagnitude);
-//				Utils.pl("S: ",speed);
-//				rawMagnitude = speed;
 				return rawMagnitude;
 				
 			case GAMEPAD2:
