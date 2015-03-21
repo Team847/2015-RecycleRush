@@ -71,9 +71,9 @@ public class TrainDrive implements RobotMap {
 			if(temp > 1 || temp < -1){
 				temp = 1;
 			}
-			if(iPhone.Magnitude(1) > 0.9){
-				temp = 1 / Utils.findMax(eins, zwei, drei);
-			}
+//			if(iPhone.Magnitude(1) > 0.9){
+//				temp = 1 / Utils.findMax(eins, zwei, drei);
+//			}
 			
 			return temp;
 		}

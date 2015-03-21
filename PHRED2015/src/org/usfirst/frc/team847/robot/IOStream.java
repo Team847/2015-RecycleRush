@@ -103,19 +103,22 @@ public class IOStream implements RobotMap {
 		//I'm not sure if getDirectionDegrees even works with the Xbox controllers. can't test now :P
 		switch(WhatStickWeUsing) {
 			case GAMEPAD1:
-			    //	rawMagnitude = XboxEins.getMagnitude();
+				double prevMag = rawMagnitude;
+				rawMagnitude = XboxEins.getMagnitude();
 				
-				// Smooth out the acceleration/deceleration by taking away 2/3 of the change in speed
-				rawMagnitude = rawMagnitude + ((XboxEins.getMagnitude() - rawMagnitude)/3); 
-				
-				if(rawMagnitude > 1) {
-					rawMagnitude = 1;
+				if(rawMagnitude > 1.0) {
+					rawMagnitude = 1.0;
 				}
 				
-				if(rawMagnitude < 0.1) { // I WANT FUNCTIONS D:
+				if(prevMag < 0.10 && rawMagnitude < 0.10)
 					rawMagnitude = 0;
-				}
-				return rawMagnitude;//THE MATH MIGHT WORK. UNTIL WE TEST--WHO KNOWS
+				else
+					// Smooth out the acceleration/deceleration by taking away some of the change in speed
+					rawMagnitude = prevMag + ((rawMagnitude - prevMag)/100);
+
+//				Utils.pl("P: ",prevMag);
+//				Utils.pl("M: ",rawMagnitude);
+				return rawMagnitude;
 			case GAMEPAD2:
 		/*		rawMagnitude = XboxZwei.getMagnitude();
 				
@@ -133,7 +136,13 @@ public class IOStream implements RobotMap {
 	}
 
 	double Rotate(){
-		return Math.pow(XboxEins.rightStickX() * 0.5, 2);
+		double speed;
+//		speed = XboxEins.rightStickX() * 0.25;
+		if((speed = XboxEins.rightStickX()) >= 0)
+			speed =  Math.pow(speed,2);
+		else
+			speed = -Math.pow(speed,2);
+		return speed;
 	}
 	
 }
