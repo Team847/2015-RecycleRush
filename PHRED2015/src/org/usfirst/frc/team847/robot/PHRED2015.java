@@ -30,10 +30,14 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     	Dash.SDString("", "Orcas are the best");
     }
 
+    public void autonomousInit(){
+    	food.reset();
+    }
+    
     public void autonomousPeriodic() {
     	
-    	food.reset();
-    	food.justDrive(2, 0.0, 0.25, 0.0); // Move forward at 1/4 speed for 2 seconds with zero rotational.
+//    	food.justDrive(2, 0.0, -0.40, 0.0); // Move forward for 2 seconds with zero rotational speed.
+    	food.justDrive(24.0, 0.0, -0.40, 0.0);
     	
     	//-------------TURN AROUND-------------\\
     	//food.justDrive(5, 0, 0, .5); //TURN TO THE RIGHT FOR 5 SECONDO

@@ -89,20 +89,27 @@ public class IOStream implements RobotMap {
 		// Switch to figure out which joystick we want to read.
 		switch(WhatStickWeUsing) {
 			case GAMEPAD1:
-//				rawMagnitude = XboxEins.getMagnitude();
 				
-				// Smooth out the acceleration/deceleration by taking away 2/3 of the change in speed
-				rawMagnitude = rawMagnitude + ((XboxEins.getMagnitude() - rawMagnitude)/3); 
+//				double speed;
+				double tempMag = rawMagnitude;
+				rawMagnitude = XboxEins.getMagnitude();
 				
-				if(rawMagnitude > 1) {
-					rawMagnitude = 1;
+				if(rawMagnitude > 1.0) {
+					rawMagnitude = 1.0;
 				}
 				
-				if(rawMagnitude < 0.15) { // I WANT FUNCTIONS D:
+				if(tempMag < 0.10 && rawMagnitude < 0.10)
 					rawMagnitude = 0;
-				}
+				else
+					// Smooth out the acceleration/deceleration by taking away some of the change in speed
+					rawMagnitude = tempMag + ((rawMagnitude - tempMag)/100);
+
+//				Utils.pl("T: ",tempMag);
+//				Utils.pl("M: ",rawMagnitude);
+//				Utils.pl("S: ",speed);
+//				rawMagnitude = speed;
+				return rawMagnitude;
 				
-				return rawMagnitude;//THE MATH MIGHT WORK. UNTIL WE TEST--WHO KNOWS
 			case GAMEPAD2:
 		/*		rawMagnitude = XboxZwei.getMagnitude();
 				
@@ -120,7 +127,13 @@ public class IOStream implements RobotMap {
 	}
 	
 	double Rotate(){
-		return Math.pow(XboxEins.rightStickX() * 0.5, 2);
+		double speed;
+//		speed = XboxEins.rightStickX() * 0.25;
+		if((speed = XboxEins.rightStickX()) > 0)
+			speed =  Math.pow(speed,2);
+		else
+			speed = -Math.pow(speed,2);
+		return speed;
 	}
 	
 }

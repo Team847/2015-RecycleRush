@@ -1,9 +1,11 @@
 package org.usfirst.frc.team847.robot;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Ultrasonic;
 
 public class AutoNoms implements RobotMap{ 
 	// Remember that it's KiwiDrive(angle, speed, turn)
 	private AnalogInput Sanic;
+	private Ultrasonic uSonic;
 	private TrainDrive chocobo;
 	
 	private int notaloop;
@@ -12,6 +14,7 @@ public class AutoNoms implements RobotMap{
 	public AutoNoms(TrainDrive thomas){
 		chocobo = thomas;
 		Sanic = new AnalogInput(SANIC);
+		uSonic = new Ultrasonic(1,0);
 		reset();
 	}
 	
@@ -43,9 +46,10 @@ public class AutoNoms implements RobotMap{
 	}
 
 	private double RangeInches(){
-		double HowManyInches = ((Sanic.getAverageVoltage() + 0.0010066850176954) / 0.0092716607681216);
-		Utils.pl("Voltage: ", Sanic.getVoltage());
-		Utils.pl("Avg Volts: ", Sanic.getAverageVoltage());
+		//double HowManyInches = ((Sanic.getAverageVoltage() + 0.0010066850176954) / 0.0092716607681216);
+		double HowManyInches = uSonic.getRangeInches();
+		//Utils.pl("Voltage: ", Sanic.getVoltage());
+		//Utils.pl("Avg Volts: ", Sanic.getAverageVoltage());
 		Utils.pl("Range: ", HowManyInches);
 
 		return HowManyInches;

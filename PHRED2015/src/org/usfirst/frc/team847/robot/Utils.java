@@ -78,6 +78,10 @@ public class Utils{
     /*
      * Print to the console and to the driver station dashboard 
      */
+    public static void pl(double d){
+		System.out.println(d);
+		SmartDashboard.putNumber(":",d);
+	}
     public static void pl(String s){
     	System.out.println(s);
     	SmartDashboard.putString(s, s);

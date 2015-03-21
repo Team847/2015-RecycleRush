@@ -81,7 +81,7 @@ public class TrainDrive implements RobotMap {
 		}
 		
 		double GetGyro() { // This gets the heading :D ORCAS ARE COOL
-			Utils.pl("Gyro: ", Heading.getAngle());
+			//Utils.pl("Gyro: ", Heading.getAngle());
 			return iPhone.CompensateGyro(Heading.getAngle());
 		}
 		
@@ -100,7 +100,7 @@ public class TrainDrive implements RobotMap {
 			VDrive_0.set(Motor_0 * RotationScaleDown);
 			VDrive_60.set(Motor_60 * RotationScaleDown);
 			VDrive_120.set(Motor_120 * RotationScaleDown);
-			System.out.println(GetGyro());
+			//System.out.println(GetGyro());
 		}
 		
 		void KiwiDrive() {
@@ -119,7 +119,7 @@ public class TrainDrive implements RobotMap {
 			VDrive_0.set(Motor_0 * RotationScaleDown);
 			VDrive_60.set(Motor_60 * RotationScaleDown);
 			VDrive_120.set(Motor_120 * RotationScaleDown);
-			Utils.pl("String ", Heading.getAngle());
+			//Utils.pl("String ", Heading.getAngle());
 		}
 /*		
 		void BlindKiwi() {
