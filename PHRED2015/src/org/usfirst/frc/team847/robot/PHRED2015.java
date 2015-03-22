@@ -1,8 +1,11 @@
 package org.usfirst.frc.team847.robot;
 
+import java.nio.IntBuffer;
+
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.hal.PDPJNI;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
@@ -38,12 +41,11 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     iPhone = new IOStream(Xbox1);
     choochoo = new TrainDrive(iPhone);
     Dash = new BoarDash();
-    Theo = new Theovator(Xbox2, lings);
+    Theo = new Theovator(Xbox2);
     lings = new ZerglingClaws(Xbox2, Theo);
     armstrong = new ARMSpring(Xbox2);
     food = new AutoNoms(choochoo, iPhone, lings, Theo, armstrong);
     choochoo.Heading.reset();
-    robotPrepDone = false;
     Dash.SDString("", "Orcas are the best");
     }
 
@@ -53,8 +55,9 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     	
     	/// SmartDashboard is unreliable right now :| vvd what we're gonna do about that.
     	/// Can code it anyway.
-    	
-    	food.AutoSet();
+        robotPrepDone = false;
+        food.reset();
+    	//food.AutoSet();
     }
     
     /**
@@ -63,9 +66,9 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     public void autonomousPeriodic() {
     	if(!robotPrepDone)
     		robotPrep();
-    	else
+    	else{
     		food.AutoRun();
-    	
+    	}
     	// Move Backwards into the AutoZone
     	//food.justDrive(choochoo, 250, 180, 0.5, 0); //Move Backwards into the AutoZone. 250 notaloops is ~5 sec.
     	
@@ -104,6 +107,7 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     public void teleopPeriodic() {
     	Theo.LiftControl();	
     	lings.ClawControl();
+    	//choochoo.Calibrate();
     	choochoo.KiwiDrive();  
     	lings.WristControl();
     	armstrong.ArmControl();
@@ -117,7 +121,15 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     }
 
     private void robotPrep(){
-    	if(Theo.LiftControl(liftPS.BOTTOM) == STOP && armstrong.ArmControl(armPS.IN) == STOP)
+    	lings.ClawControl(CLOSECLAW);
+    	Theo.isAtBottom();
+    	armstrong.isAllIn();
+    	if(Theo.isAtBottom() && armstrong.isAllIn())
     		robotPrepDone = true;
     }
+    
+    
+    
+    
+    
 }

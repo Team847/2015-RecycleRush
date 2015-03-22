@@ -17,6 +17,29 @@ public class IOStream implements RobotMap {
 	    rawMagnitude = 0;
 	}
 	
+	boolean GetButton(String button) {
+		switch(button) {
+		case "A":
+			return XboxEins.aButton();
+		case "B":
+			return XboxEins.bButton();
+		case "X":
+			return XboxEins.xButton();
+		case "Y":
+			return XboxEins.yButton();
+		case "l bumper":
+			return XboxEins.lBumper();
+		case "r bumper":
+			return XboxEins.rBumper();
+		case "r stick":
+			return XboxEins.rStickPressed();
+		case "l stick":
+			return XboxEins.lStickPressed();
+		default:
+			return false;			
+		}
+	}
+	
 	double DeadZones(double joyin, int lower, int upper, double result) {
 		if(joyin > lower && joyin < upper) {
 			return result;
@@ -33,6 +56,12 @@ public class IOStream implements RobotMap {
 		Dash.SDNumber("Gyro Compensation Value", GyroCompensation);
 		return Angle - GyroCompensation;
 	}
+	
+	/*double CompensateGyro(boolean dif, double Angle) {
+		GyroCompensation = Angle;
+		
+		return Angle - GyroCompensation;
+	}*/
 	
 	//This might not be needed if similar funionality is put into GamePad also plz change name of gamepad is bad D:
 	/*double getAxisValue(int joystick, int axis) { // This one reads the axis value of the joysticks :D
@@ -104,7 +133,7 @@ public class IOStream implements RobotMap {
 		switch(WhatStickWeUsing) {
 			case GAMEPAD1:
 				double prevMag = rawMagnitude;
-				rawMagnitude = XboxEins.getMagnitude();
+				rawMagnitude = XboxEins.getMagnitude() * 0.75;
 				
 				if(rawMagnitude > 1.0) {
 					rawMagnitude = 1.0;
@@ -114,7 +143,7 @@ public class IOStream implements RobotMap {
 					rawMagnitude = 0;
 				else
 					// Smooth out the acceleration/deceleration by taking away some of the change in speed
-					rawMagnitude = prevMag + ((rawMagnitude - prevMag)/100);
+					rawMagnitude = prevMag + ((rawMagnitude - prevMag)/50);
 
 //				Utils.pl("P: ",prevMag);
 //				Utils.pl("M: ",rawMagnitude);

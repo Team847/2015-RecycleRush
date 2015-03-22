@@ -28,20 +28,21 @@ public class AutoNoms implements RobotMap{
 		lings = speedlings;
 		theo = Thel;
 		arm = Arm;
-		Sanic = new AnalogInput(RIGHTSANIC);
+		Sanic = new AnalogInput(FRONT);
 	}
 
 	public void reset(){
 		stepDone = false;
 		stepidx = 0;
 		notaloop = 0;
+		AutoRoutine = 1;
 	}
 	
 	void AutoSet(){
 		reset();
 		switch(Dash.GetString("Auto Mode", "Drive Forward")) {
 			case "Drive Forward":
-				AutoRoutine = 5;
+				AutoRoutine = 1;
 				break;
 			case "Get Bin":
 				AutoRoutine = 10;
@@ -56,8 +57,9 @@ public class AutoNoms implements RobotMap{
 	
 	void AutoRun() {
 		switch(AutoRoutine) {
-			case 5:
-				ForwardDrive();
+			case 1:
+				AutoBin_Step();
+//				ForwardDrive();
 				break;
 			case 10:
 				AutoBin_Alpha();
@@ -71,7 +73,7 @@ public class AutoNoms implements RobotMap{
 	}
 	
 	void ForwardDrive() { // Drive forward for a certain amount of time :D 
-		justDrive(2, 0, 0.5, 0);
+		justDrive(2.0, 0, -0.5, 0);
 	}
 	
 	void AutoBin_Alpha(){
@@ -96,14 +98,15 @@ public class AutoNoms implements RobotMap{
 		theo.LiftControl(liftPS.STEP_TOTE); // Raise the arm to step height
 
 		switch(stepidx){
-			case 0: justDrive(2.0, 0, 0.4, 0); // Drive into the landfill gap
-					AutoClaw(lings, true);
+			case 0: justDrive(3.0, 0, -0.6, 0); // Drive into the landfill gap
+					//justDrive(0, 0, -0.6, 0, 16.0);
+					AutoClaw(lings, false);
 					break;
-			case 1:	justDrive(1.0, 0, 0, 0.25); // Rotate to face the RC
+			case 1:	justDrive(1.0, 0, 0, 0.5); // Rotate to face the RC
 					break;
 			case 2: if(arm.ArmControl(armPS.STEP_RC) == STOP) // Extend the arm to the RC
 						stepDone = true;
-					AutoClaw(lings, false);
+					AutoClaw(lings, true);
 					break;
 			default:
 		}
@@ -118,13 +121,15 @@ public class AutoNoms implements RobotMap{
 			notaloop++;
 		}
 		else {
+			notaloop = 0;
 			stepDone = true;
 			chocobo.KiwiDrive(0,0,0);
 		}
 	}
 
 	// Drive based on distance to an object
-	public void justDrive(int time, double angle, double speed, double turn, double range){
+	public void justDrive(double time, double angle, double speed, double turn, double range){
+		Utils.pl("range: ", RangeInches());
 		if(RangeInches() > range)
 			chocobo.KiwiDrive(angle, speed, turn);
 		else {
@@ -135,9 +140,9 @@ public class AutoNoms implements RobotMap{
 
 	private double RangeInches(){
 		double HowManyInches = ((Sanic.getAverageVoltage() + 0.0010066850176954) / 0.0092716607681216);
-		Utils.pl("Voltage: ", Sanic.getVoltage());
-		Utils.pl("Avg Volts: ", Sanic.getAverageVoltage());
-		Utils.pl("Range: ", HowManyInches);
+		//Utils.pl("Voltage: ", Sanic.getVoltage());
+		//Utils.pl("Avg Volts: ", Sanic.getAverageVoltage());
+		//Utils.pl("Range: ", HowManyInches);
 
 		return HowManyInches;
 	}

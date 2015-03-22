@@ -8,7 +8,7 @@ public class Theovator implements RobotMap{
 	CANTalon Motor;
 	GearTooth Dwagon;
 	GamePad gamePad;
-	ZerglingClaws zClaw;
+//	ZerglingClaws zClaw;
 	
 	double Geartooth;
 	double MotorSpeed;
@@ -16,11 +16,11 @@ public class Theovator implements RobotMap{
 	double Down;
 	double Stop;
 	boolean done = false; 
-	int[] liftGT={0, 0, 100, 300, 1000, 2000}; // Not Used, Bottom, Clear Tote on Step, Clear 3 Totes, Claw No Turn, Top
+	int[] liftGT={0, 0, -30, 300, 1000, 2000}; // Not Used, Bottom, Clear Tote on Step, Clear 3 Totes, Claw No Turn, Top
 
-    public Theovator(GamePad pad, ZerglingClaws claw){
+    public Theovator(GamePad pad){//, ZerglingClaws claw){
     	gamePad = pad;
-    	zClaw = claw;
+    	//zClaw = claw;
 
     	Dwagon = new GearTooth(GEARTOOTH_ELEVATOR);
         Motor = new CANTalon(CANTALON_THEOVATOR);
@@ -35,7 +35,8 @@ public class Theovator implements RobotMap{
     }
     
     public void LiftControl(){
-    	if(Motor.isRevLimitSwitchClosed()){
+    	//if(Motor.isRevLimitSwitchClosed()){
+       	if(Motor.isFwdLimitSwitchClosed()){
     		LiftInit();
     	}
     	
@@ -45,14 +46,14 @@ public class Theovator implements RobotMap{
     		MotorSpeed = moveToPreset();
     
     	// Code to keep claw from exceeding the height limit
-    	if(zClaw.isOpen() && noOpenClawPosition()){
-   			MotorSpeed = Stop;
-    	}
+    	//if(zClaw.isOpen() && noOpenClawPosition()){
+   		//	MotorSpeed = Stop;
+    	//}
     	
     	Dwagon.update(MotorSpeed);
         Motor.set(MotorSpeed);
 
-    	Utils.pl("Elevator GearTooth: ", Dwagon.get());
+//    	Utils.pl("Lift GT: ", Dwagon.get());
 
     }
     
@@ -60,12 +61,12 @@ public class Theovator implements RobotMap{
     	MotorSpeed = speed;
 
     	// Code to keep claw from exceeding the height limit
-    	if(zClaw.isOpen() && noOpenClawPosition()){
-   			MotorSpeed = Stop;
-    	}
+    	//if(zClaw.isOpen() && noOpenClawPosition()){
+   		//	MotorSpeed = Stop;
+    	//}
     	
     	Dwagon.update(MotorSpeed);
-    	Utils.pl("Elevator GearTooth: ", Dwagon.get());
+//    	Utils.pl("Elevator GearTooth: ", Dwagon.get());
         Motor.set(MotorSpeed);
     }
 
@@ -76,7 +77,7 @@ public class Theovator implements RobotMap{
     	}
 
     	Dwagon.update(MotorSpeed);
-    	Utils.pl("Elevator GearTooth: ", Dwagon.get());
+//    	Utils.pl("Elevator GearTooth: ", Dwagon.get());
     	Geartooth = Dwagon.get();
         Motor.set(MotorSpeed);
         
@@ -149,6 +150,16 @@ public class Theovator implements RobotMap{
     	}
 
     	return ms;
+    }
+
+    public boolean isAtBottom(){
+       	if(Motor.isFwdLimitSwitchClosed()){
+    		LiftInit(); return true;
+       	}
+       	else{
+       	    LiftControl(-Down);
+       		return false;
+       	}
     }
     
     public boolean noOpenClawPosition(){

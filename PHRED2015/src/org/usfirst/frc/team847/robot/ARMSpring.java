@@ -19,7 +19,7 @@ public class ARMSpring implements RobotMap {
 		double Out  =  1.0;
 		double Stop =  0.0;
 		
-		int[] armGT={0, 0, 1000, 2000}; // Not Used, All in, Step RC, All out
+		int[] armGT={0, 0, 50, 2000}; // Not Used, All in, Step RC, All out
 
 		
 		public ARMSpring(GamePad pad) {
@@ -38,7 +38,7 @@ public class ARMSpring implements RobotMap {
 			
 			Wyrm.update(-ARMSpeed);
 			eagle.set(-ARMSpeed);
-			//Dash.SDNumber("ARM Geartooth: ", Wyrm.get());
+			Utils.pl("Arm GT: ", Wyrm.get());
 		}
 		
 		void ArmControl(double speed){  // Used for autonomous
@@ -54,10 +54,10 @@ public class ARMSpring implements RobotMap {
 			if(eagle.isRevLimitSwitchClosed())
 				ARMSpringInit();
 			
-			Wyrm.update(ARMSpeed);
-			eagle.set(ARMSpeed);
+			Wyrm.update(-ARMSpeed);
+			eagle.set(-ARMSpeed);
 			
-			return ARMSpeed;
+			return -ARMSpeed;
 		}
 		
 		public double moveToPreset(armPS preset){
@@ -80,4 +80,14 @@ public class ARMSpring implements RobotMap {
 
 	   		return ms; 
 	    }
+		
+		public boolean isAllIn(){
+			if(eagle.isRevLimitSwitchClosed()){
+				ARMSpringInit(); return true;
+			}
+			else{
+				ArmControl(-In);
+				return false;
+			}	
+		}
 }

@@ -42,9 +42,9 @@ public class ZerglingClaws implements RobotMap {
 			clawstatus = close;
 		}
 		if (Pad.rBumper() == false && Pad.lBumper() == true){
-			if(lift.noOpenClawPosition())
-				clawstatus = close;
-			else
+			//if(lift.noOpenClawPosition())
+			//	clawstatus = close;
+			//else
 				clawstatus = open;
 		} 
 		

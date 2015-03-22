@@ -24,6 +24,7 @@ public interface RobotMap {
 			public final static int GYRO = 1;//This one is used in TrainDrive. I wasn't sure whether
 			
 		//ANALOG ULTRASAAAAAAAAAAAANICS\\
+			public final static int FRONT = 3;
 			public final static int LEFTSANIC = 2; // The left ultra
 			public final static int RIGHTSANIC = 3; // The Right ultra
 		//DIGITAL ULTRASAAAAAAAAAAAANICS\\	

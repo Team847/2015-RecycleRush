@@ -18,6 +18,7 @@ public class TrainDrive implements RobotMap {
 		int calimotor = 1;
 		double multiplier = 0.33333;
 		double RotationScaleDown = 1.0;
+		double TooFastMotor = 0.0235 * 2;
 		
 		double Motor_0;
 		double Motor_60;
@@ -54,11 +55,11 @@ public class TrainDrive implements RobotMap {
 			}
 			switch(motor) {
 			case 0:
-				return Math.sin(Math.toRadians(angle + gyroval + 180)) * speed + 0.5 * turn;
+				return (Math.sin(Math.toRadians(angle + gyroval + 180)) * speed + 0.5 * turn);
 			case 60:
-				return Math.sin(Math.toRadians(angle + 120 + gyroval + 180)) * speed + 0.5 * turn;
+				return (Math.sin(Math.toRadians(angle + 120 + gyroval + 180)) * speed + 0.5 * turn);
 			case 120:
-				return Math.sin(Math.toRadians(angle - 120 + gyroval + 180)) * speed + 0.5 * turn;
+				return (Math.sin(Math.toRadians(angle - 120 + gyroval + 180)) * speed + 0.5 * turn);
 			default:
 				return 0;
 			}
@@ -89,14 +90,17 @@ public class TrainDrive implements RobotMap {
 			
 			RotationScaleDown = Math.abs(SetScaleDown(Math.abs(Motor_0), Math.abs(Motor_60), Math.abs(Motor_120)));
 			
-			Dash.SDNumber("M1S-A", Motor_0);
-			Dash.SDNumber("M2S-A", Motor_60);
-			Dash.SDNumber("M3S-A", Motor_120);
+			Dash.SDNumber("M1SA", Motor_0);
+			Dash.SDNumber("M2SA", Motor_60);
+			Dash.SDNumber("M3SA", Motor_120);
 			Dash.SDNumber("Rotation Scale", RotationScaleDown);
+			
+			if(Motor_120 < 0) Motor_120 += TooFastMotor;
+			else Motor_120 -= TooFastMotor;
 			
 			Drive_0.set(Motor_0 * RotationScaleDown);
 			Drive_60.set(Motor_60 * RotationScaleDown);
-			Drive_120.set(Motor_120 * RotationScaleDown);
+			Drive_120.set((Motor_120) * RotationScaleDown);
 			//System.out.println(GetGyro());
 		}
 		
@@ -112,10 +116,12 @@ public class TrainDrive implements RobotMap {
 			Dash.SDNumber("Motor 3 speed", Motor_120);
 			Dash.SDNumber("Rotation Scale", RotationScaleDown);
 			
+			if(Motor_120 < 0) Motor_120 += TooFastMotor;
+			else Motor_120 -= TooFastMotor;
 			
 			Drive_0.set(Motor_0 * RotationScaleDown);
 			Drive_60.set(Motor_60 * RotationScaleDown);
-			Drive_120.set(Motor_120 * RotationScaleDown);
+			Drive_120.set((Motor_120) * RotationScaleDown);
 			//Utils.pl("String ", Heading.getAngle());
 		}
 /*		
@@ -152,26 +158,26 @@ public class TrainDrive implements RobotMap {
 			Drive_120.set(Motor_120 * RotationScaleDown);
 		}
 */
-/*		
+		
 		void Calibrate() {						
 			
-			if(iPhone.Xbox1.getRawButton(1)){
+			if(iPhone.GetButton("A")){
 				calimotor++;
 				Timer.delay(1);
 			}
-			if(iPhone.Xbox1.getRawButton(3)){
+			if(iPhone.GetButton("B")){
 				calimotor--;
 				Timer.delay(1);
 			}
-			if(iPhone.Xbox1.getRawButton(2)){
+			if(iPhone.GetButton("X")){
 				multiplier += (0.33333);
 				Timer.delay(1);
 			}
-			if(iPhone.Xbox1.getRawButton(4)){
+			if(iPhone.GetButton("Y")){
 				multiplier -= (0.33333);
 				Timer.delay(1);
 			}
-			double tempspeed = (iPhone.Xbox1.getX() * multiplier);
+			double tempspeed = (iPhone.XboxEins.leftStickX() * multiplier);
 			
 			Dash.SDNumber("Calibrating motor", calimotor);
 			Dash.SDNumber("Motor Multiplier", multiplier);
@@ -201,7 +207,7 @@ public class TrainDrive implements RobotMap {
 			
 			
 		}
-*/
+
 /*		
 		void KiwiV8Drive(double angle, double speed, double turn) { // Totally using it though :|
 			Motor_0 = HowFast(0, angle, speed, turn, GetGyro());
