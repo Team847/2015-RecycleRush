@@ -40,7 +40,7 @@ public class AutoNoms implements RobotMap{
 	
 	void AutoSet(){
 		reset();
-		switch(Dash.GetString("Auto Mode", "Drive Forward")) {
+/*		switch(Dash.GetString("Auto Mode", "Drive Forward")) {
 			case "Drive Forward":
 				AutoRoutine = 1;
 				break;
@@ -53,7 +53,7 @@ public class AutoNoms implements RobotMap{
 			default:
 				break;		
 		}
-	}
+*/	}
 	
 	void AutoRun() {
 		switch(AutoRoutine) {
@@ -98,11 +98,11 @@ public class AutoNoms implements RobotMap{
 		theo.LiftControl(liftPS.STEP_TOTE); // Raise the arm to step height
 
 		switch(stepidx){
-			case 0: justDrive(3.0, 0, -0.6, 0); // Drive into the landfill gap
+			case 0: justDrive(2.25, 0, -0.6, 0); // Drive into the landfill gap
 					//justDrive(0, 0, -0.6, 0, 16.0);
 					AutoClaw(lings, false);
 					break;
-			case 1:	justDrive(1.0, 0, 0, 0.5); // Rotate to face the RC
+			case 1:	justDrive(0.75, 0, 0, 0.5); // Rotate to face the RC
 					break;
 			case 2: if(arm.ArmControl(armPS.STEP_RC) == STOP) // Extend the arm to the RC
 						stepDone = true;

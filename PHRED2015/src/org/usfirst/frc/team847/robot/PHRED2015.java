@@ -56,8 +56,7 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     	/// SmartDashboard is unreliable right now :| vvd what we're gonna do about that.
     	/// Can code it anyway.
         robotPrepDone = false;
-        food.reset();
-    	//food.AutoSet();
+    	food.AutoSet();
     }
     
     /**
@@ -100,8 +99,8 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
      * This function is called periodically during operator control
      */
     public void teleopInit() {
-    	Theo.LiftInit();
-    	lings.ZerglingClawsInit();
+    	//Theo.LiftInit();
+    	//lings.ZerglingClawsInit();
     }
     
     public void teleopPeriodic() {
@@ -122,6 +121,7 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
 
     private void robotPrep(){
     	lings.ClawControl(CLOSECLAW);
+    	lings.ZerglingClawsInit();
     	Theo.isAtBottom();
     	armstrong.isAllIn();
     	if(Theo.isAtBottom() && armstrong.isAllIn())
