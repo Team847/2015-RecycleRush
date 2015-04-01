@@ -35,7 +35,7 @@ public class AutoNoms implements RobotMap{
 		stepDone = false;
 		stepidx = 0;
 		notaloop = 0;
-		AutoRoutine = 1;
+//		AutoRoutine = 0;
 	}
 	
 	void AutoSet(){
@@ -57,17 +57,17 @@ public class AutoNoms implements RobotMap{
 	
 	void AutoRun() {
 		switch(AutoRoutine) {
-			case 1:
+			case 0:
 				AutoBin_Step();
 //				ForwardDrive();
 				break;
-			case 10:
+/*			case 1:
 				AutoBin_Alpha();
 				break;
-			case 15:
+			case 2:
 				AutoBin_Step();
 				break;
-			default:
+*/			default:
 				break;
 		}
 	}
@@ -102,7 +102,7 @@ public class AutoNoms implements RobotMap{
 					//justDrive(0, 0, -0.6, 0, 16.0);
 					AutoClaw(lings, false);
 					break;
-			case 1:	justDrive(0.75, 0, 0, 0.5); // Rotate to face the RC
+			case 1:	justDrive(0.87, 0, 0, 0.5); // Rotate to face the RC
 					break;
 			case 2: if(arm.ArmControl(armPS.STEP_RC) == STOP) // Extend the arm to the RC
 						stepDone = true;
@@ -112,6 +112,7 @@ public class AutoNoms implements RobotMap{
 		}
 		if(stepDone){stepidx++; stepDone = false;}
 	}
+	
 
 	
 	// notaloop will iterate every 20ms, taking 50 iterations to make up one second

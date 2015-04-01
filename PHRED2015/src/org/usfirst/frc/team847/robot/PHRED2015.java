@@ -56,7 +56,8 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     	/// SmartDashboard is unreliable right now :| vvd what we're gonna do about that.
     	/// Can code it anyway.
         robotPrepDone = false;
-    	food.AutoSet();
+ //   	food.reset();
+ //   	choochoo.Heading.reset();
     }
     
     /**
@@ -66,7 +67,8 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     	if(!robotPrepDone)
     		robotPrep();
     	else{
-    		food.AutoRun();
+ //   		food.AutoRun();
+    		food.AutoBin_Step();
     	}
     	// Move Backwards into the AutoZone
     	//food.justDrive(choochoo, 250, 180, 0.5, 0); //Move Backwards into the AutoZone. 250 notaloops is ~5 sec.
