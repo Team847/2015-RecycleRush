@@ -20,6 +20,9 @@ public interface RobotMap {
 		
 //* ---------- ANALOG ----------*\\
 		
+		//Autonomous Switch\\
+			public final static int AUTO_SWITCH = 0;
+		
 		//Heading\\
 			public final static int GYRO = 1;//This one is used in TrainDrive. I wasn't sure whether
 			

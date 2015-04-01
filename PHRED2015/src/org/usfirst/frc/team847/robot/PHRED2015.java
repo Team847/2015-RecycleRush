@@ -2,6 +2,7 @@ package org.usfirst.frc.team847.robot;
 
 import java.nio.IntBuffer;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -26,6 +27,7 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
 	private Theovator Theo;
 	private GearTooth Dwagon;
 	private IOStream iPhone;
+	private AnalogInput autoOnOff;
 	
 	private ARMSpring armstrong;
 	private ZerglingClaws lings;
@@ -45,6 +47,7 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
     lings = new ZerglingClaws(Xbox2, Theo);
     armstrong = new ARMSpring(Xbox2);
     food = new AutoNoms(choochoo, iPhone, lings, Theo, armstrong);
+    autoOnOff = new AnalogInput(AUTO_SWITCH);
     choochoo.Heading.reset();
     Dash.SDString("", "Orcas are the best");
     }
@@ -64,11 +67,18 @@ public class PHRED2015 extends IterativeRobot implements RobotMap{
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	if(!robotPrepDone)
-    		robotPrep();
+    	if (autoOnOff.getAverageVoltage() > 2.5)
+    	{
+    		System.out.println("deadeadeade no auto!!!!");
+    	}
     	else{
- //   		food.AutoRun();
-    		food.AutoBin_Step();
+    			
+    		if(!robotPrepDone)
+    			robotPrep();
+    		else{
+ //   			food.AutoRun();
+    			food.AutoBin_Step();
+    		}
     	}
     	// Move Backwards into the AutoZone
     	//food.justDrive(choochoo, 250, 180, 0.5, 0); //Move Backwards into the AutoZone. 250 notaloops is ~5 sec.
