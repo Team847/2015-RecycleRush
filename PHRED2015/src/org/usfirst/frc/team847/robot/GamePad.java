@@ -4,24 +4,24 @@ import edu.wpi.first.wpilibj.Joystick;
 public class GamePad extends Joystick {
 
 	// Stick axis mappings
-	private final static int lStickX     = 0;  //leftStickX
-	private final static int lStickY     = 1;  //leftStickY
-	private final static int lTrigger    = 2;  //leftTrigger
-	private final static int rTrigger    = 3;  //rightTrigger
-	private final static int rStickX     = 4;  //rightStickX
-	private final static int rStickY     = 5;  //rightStickY
+	private final static int lStickX     = 0;  //Left Stick, X Axis
+	private final static int lStickY     = 1;  //Left Stick, Y Axis
+	private final static int lTrigger    = 2;  //left Trigger
+	private final static int rTrigger    = 3;  //right Trigger
+	private final static int rStickX     = 4;  //right Stick X Axis
+	private final static int rStickY     = 5;  //right Stick Y Axis
 	
 	// Button mappings
-	private final static int buttonA     = 1;  //aButton
-	private final static int buttonB     = 2;  //bButton
-	private final static int buttonX     = 3;  //xButton
-	private final static int buttonY     = 4;  //yButton
-	private final static int bumperL     = 5;  //lBumper
-	private final static int bumperR     = 6;  //rBumper
-	private final static int buttonBack  = 7;  //backB
-	private final static int buttonStart = 8;  //startB
-	private final static int pressLStick = 9;  //lStickPressed
-	private final static int pressRStick = 10; //rStickPressed
+	private final static int buttonA     = 1;  //a Button
+	private final static int buttonB     = 2;  //b Button
+	private final static int buttonX     = 3;  //x Button
+	private final static int buttonY     = 4;  //y Button
+	private final static int bumperL     = 5;  //l Bumper
+	private final static int bumperR     = 6;  //r Bumper
+	private final static int buttonBack  = 7;  //back button
+	private final static int buttonStart = 8;  //start button
+	private final static int pressLStick = 9;  //left Stick Pressed
+	private final static int pressRStick = 10; //right Stick Pressed
 
 	// Dpad mapping 
 	private final static int dPad        = 0;  // dPad: Returns Angle in degrees {0,45,90,...,315}
